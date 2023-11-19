@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Powiadomienia</h1>
+<div mat-dialog-content>
+  <div *ngFor="let notification of data.notifications">
+    <p><strong>{{notification}}</strong></p>
+  </div>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close()">Zamknij</button>
+</div>

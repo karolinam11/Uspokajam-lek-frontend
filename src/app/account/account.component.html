@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="row justify-content-between" style="margin-top: 20px;">
+    <div class="col-md-6"  style="width:45%">
+      <form [formGroup]="patientInfoForm">
+        <div class="mb-3">
+          <label for="name" class="form-label">Imię</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control patient-info"
+            formControlName="name">
+        </div>
+        <div class="mb-3">
+          <label for="surname" class="form-label">Nazwisko</label>
+          <input
+            type="text"
+            id="surname"
+            class="form-control patient-info"
+            formControlName="surname">
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">E-Mail</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control patient-info"
+            formControlName="email">
+        </div>
+        <div class="mb-3">
+          <label for="birthDate" class="form-label">Data urodzenia</label>
+          <input
+            type="date"
+            id="birthDate"
+            class="form-control patient-info"
+            formControlName="birthDate">
+        </div>
+        <div class="text-center">
+          <button class="btn btn buttons" type="submit"  [disabled]="!patientInfoForm.valid" (click)="onEdit()">Zapisz</button>
+        </div>
+        <div class="text-center" *ngIf="!patientInfoForm.valid">
+          <p class="text-danger">Niepoprawne dane, spróbuj ponownie</p>
+        </div>
+        <div class="text-center" *ngIf="editSucceeded">
+          <p class="text-success">Zapisano</p>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6" style="width:45%">
+      <br>
+      <div class="therapists-list">
+        <p class="text-center">Lista terapeutów</p>
+      </div>
+      <div class="text-center">
+        <button *ngIf="!addTherapist" class="btn btn buttons" type="button" (click)="onAddTherapist()">Dodaj terapeutę</button>
+      </div>
+      <form [formGroup]="therapistCodeForm" *ngIf="addTherapist">
+        <div class="mb-3" >
+          <input
+            type="text"
+            id="code"
+            class="form-control code"
+            placeholder="Wprowadź kod"
+            formControlName="code">
+        </div>
+        <div class="text-center">
+          <button class="btn btn buttons" type="submit" *ngIf='addTherapist' (click)="onSubmitTherapistCode()">Potwierdź</button>
+        </div>
+      </form>
+      <br>
+      <div class="therapists-list">
+        <p class="text-center">Historia wizyt</p>
+      </div>
+    </div>
+  </div>
+</div>

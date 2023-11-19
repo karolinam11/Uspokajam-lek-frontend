@@ -1,0 +1,108 @@
+
+<div class="container-fluid">
+  <div class="row cards">
+    <div class="col-md-6">
+      <div class="card text">
+        <div class="card-body">
+          <p>Zaznacz jak się czujesz!</p>
+          <input type="date" value="{{currentDate | date: 'yyyy-MM-dd'}}" #dateInput (change)="onDateChange()">
+          <p class="text-danger" *ngIf="invalidDate">Niepoprawna data</p>
+          <div style="margin-top:10px">
+            <button class="emoji-container" [class.clicked]="selectedMood === 'terrible'" (click)="onSelectMood('terrible')">
+              <h1>😣</h1>
+              <p class="text">Okropnie</p>
+            </button>
+            <button class="emoji-container" [class.clicked]="selectedMood === 'bad'" (click)="onSelectMood('bad')">
+              <h1>🙁</h1>
+              <p class="text">Źle</p>
+            </button>
+            <button class="emoji-container" [class.clicked]="selectedMood === 'neutral'" (click)="onSelectMood('neutral')">
+              <h1>🫤</h1>
+              <p class="text">Średnio</p>
+            </button>
+            <button class="emoji-container" [class.clicked]="selectedMood === 'good'" (click)="onSelectMood('good')">
+              <h1>🙂</h1>
+              <p class="text">Dobrze</p>
+            </button>
+            <button class="emoji-container" [class.clicked]="selectedMood === 'excellent'" (click)="onSelectMood('excellent')">
+              <h1>😄</h1>
+              <p class="text">Wspaniale</p>
+            </button>
+            <br>
+            <br>
+            <p>Co robiłeś? Jak się wtedy czułeś?</p>
+            <form [formGroup]="activitiesForm">
+              <div formArrayName="moods">
+                <div class="row form-group" *ngFor="let entry of moodsArray.controls; let i = index" [formGroupName]="i">
+                  <div class="col-md-5">
+                    <input
+                      type="text"
+                      id="action"
+                      formControlName="action"
+                      placeholder="Czynność"
+                      class="form-control"
+                      >
+                  </div>
+                  <div class="col-md-5">
+                    <select
+                      id="mood"
+                      formControlName="mood"
+                      class="form-select">
+                      <option value="" disabled>Emocja</option>
+                      <option value="terrible">Okropnie</option>
+                      <option value="bad">Źle</option>
+                      <option value="neutral">Średnio</option>
+                      <option value="good">Dobrze</option>
+                      <option value="excellent">Wspaniale</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2">
+                    <button (click)="removeEntry(i)" class="btn btn moods">Usuń</button>
+                  </div>
+                </div>
+              </div>
+              <button (click)="addEntry()" class="btn btn moods">+</button>
+            </form>
+          </div>
+          <br>
+          <p>Dodaj notatkę!</p>
+          <div>
+            <textarea class="note" #note></textarea>
+          </div>
+          <button class="btn btn moods" type="submit" (click)="submitForm()"
+                  [disabled]="selectedMood === null || invalidDate">
+            Zapisz</button>
+        </div>
+        <p *ngIf="dailyReportFailed">Nie udało się zapisać raportu. W dzień ({{currentDate | date:'dd-MM-yyyy' }}) został już dodany raport</p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="exercises card">
+        <p class="text-center"> Do zrobienia dzisiaj</p>
+        <div class="form-check checkboxes" *ngFor="let assignedExercise of exercisesToDo">
+          <input class="form-check-input" type="checkbox" [checked]="assignedExercise.done" [disabled]="assignedExercise.done" id="{{assignedExercise.id}}" (change)="setExerciseToDone(assignedExercise)">
+          <label class="form-check-label" for="{{assignedExercise.id}}" (click)="goToExercise(assignedExercise)">
+            {{assignedExercise.exercise.name}}
+          </label>
+        </div>
+      </div>
+      <br>
+      <div class="exercises card">
+        <p class="text-center"> Zrobione w tym tygodniu</p>
+        <div class="form-check checkboxes" *ngFor="let assignedExercise of exercisesDone">
+          <input class="form-check-input" type="checkbox" [checked]="assignedExercise.done" disabled id="{{assignedExercise.id}}" (change)="setExerciseToDone(assignedExercise)">
+          <label class="form-check-label" for="{{assignedExercise.id}}" (click)="goToExercise(assignedExercise)">
+            {{assignedExercise.exercise.name}}
+          </label>
+        </div>
+      </div>
+      <br>
+      <div class="exercises card">
+        <p class="text-center">Nadchodzące wizyty</p>
+        <ul *ngFor="let appointment of futureAppointments">
+          <li>{{appointment.doctor.name}} {{appointment.doctor.surname}} {{appointment.visitStartDate | date: "dd-MM-yyyy HH:mm" }} - {{appointment.visitEndDate | date: "HH:mm" }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

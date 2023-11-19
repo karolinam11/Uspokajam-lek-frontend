@@ -1,0 +1,26 @@
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+body{
+  /*background-color: #fffffe;*/
+  background-color: #fcfbf6;
+  font-family: sans-serif;
+  color: #020826;
+}
+
+.nav-link{
+  color: #020826;
+}
+
+a.fc-daygrid-day-number{
+  color:black;
+  text-decoration:none;
+}
+
+a.fc-col-header-cell-cushion{
+  color:black;
+  text-decoration:none;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+

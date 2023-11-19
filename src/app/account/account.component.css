@@ -1,0 +1,32 @@
+.patient-info{
+  border-color: #46523e;
+  margin: 5px auto;
+  color: #46523e;
+}
+
+.buttons{
+  background-color: #46523e;
+  color: #f0f2e9;
+
+
+}
+
+.therapists-list{
+  /*border-color: black;*/
+  border-color: #46523e;
+  border-radius: 5px;
+  border-width: 1px;
+  border-style: solid;
+  margin: 10px auto;
+  width: 100%;
+  background-color: white;
+  color: #46523e;
+}
+
+.code{
+  /*border-color: #020826;*/
+  border-color: #46523e;
+  margin: 5px auto;
+  width: 30%;
+  color: #46523e;
+}

@@ -1,0 +1,13 @@
+.card{
+  background-color: #FFFFFE;
+  border-color: #46523e;
+  border-radius: 5px;
+  border-width: 1px;
+  color: #46523e;
+}
+
+.statistics{
+  background-color: #46523e;
+  color: #FFFFFE;
+  margin-right: 10px;
+}

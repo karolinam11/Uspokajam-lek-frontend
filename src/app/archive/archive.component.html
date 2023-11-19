@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row" *ngIf="reports.length!==0">
+    <div class="col-md-3">
+      <div class="dates" style="height: 600px; width: 100%">
+      <ul class="list-group align-items-center">
+        <li class="list-group-item d-flex justify-content-between" style="margin-top: 10px;margin-bottom: 5px; width: 90%; " *ngFor="let report of reports" (click)="onClickDailyReport(report)">
+          {{report.date | date: 'dd-MM-yyyy'}}
+          <img src="assets/trash.svg" (click)="openConfirmationDialogDailyReport(report.id)">
+        </li>
+      </ul>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="dates" *ngIf="selectedReport !== null" style="height: 600px; padding: 30px">
+        <p style="font-weight: bold; font-size: 20px">Data: {{selectedReport.date}}</p>
+        <p style="font-weight: bold">Emocja przewodnia</p>
+        <p style="font-size: 30px; display: inline-block">{{mapEmotionNameToEmoji(selectedReport.mood)[0]}}</p>
+        <p style="display: inline-block; margin-left: 5px">{{mapEmotionNameToEmoji(selectedReport.mood)[1]}}</p>
+        <p style="font-weight: bold">Czynności i powiązane emocje</p>
+        <ul>
+          <li *ngFor="let activity of filterActivities()" >
+            {{activity.name}} -
+            {{mapEmotionNameToEmoji(activity.mood)[1]}}
+          </li>
+        </ul>
+        <p style="font-weight: bold">Notatka</p>
+        <div class="">
+        <p>{{selectedReport.note}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row"*ngIf="reports.length===0" style="font-weight: bold; text-align: center; font-size: 25px; padding:20px">
+    <p>Archiwum jest puste</p>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-lg" id="navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="assets/mindfulness.png" alt="Bootstrap" width="30" height='30'>
+      Uspokajam lęk
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-2 mb-lg-0">
+        <li class="nav-item" [ngClass]="{ 'bold': route === '/' }" *ngIf = "!loggedIn">
+          <a class="nav-link active" aria-current="page" routerLink="/">Strona główna</a>
+        </li>
+        <li class="nav-item" [ngClass]="{ 'bold': route === '/about-us' }" *ngIf = "!loggedIn">
+          <a class="nav-link" routerLink="/about-us">O nas</a>
+        </li>
+        <li class="nav-item" [ngClass]="{ 'bold': route === '/contact' }" *ngIf = "!loggedIn">
+          <a class="nav-link" routerLink="/contact">Kontakt</a>
+        </li>
+        <li class="nav-item userpage" [ngClass]="{ 'bold': route === '/doctor-page' }" *ngIf = "loggedIn && role === 'DOCTOR'">
+          <a class="nav-link" routerLink="/doctor-page">Moja strona</a>
+        </li>
+        <li class="nav-item userpage" [ngClass]="{ 'bold': route === '/user-page' }" *ngIf = "loggedIn && role === 'PATIENT'">
+          <a class="nav-link" routerLink="/user-page">Moja strona</a>
+        </li>
+        <li class="nav-item" [ngClass]="{ 'bold': route === '/statistics' }" *ngIf = "loggedIn && role === 'PATIENT'">
+          <a class="nav-link" routerLink="/statistics">Statystyki</a>
+        </li>
+        <li class="nav-item" [ngClass]="{ 'bold': route === '/exercises' }" *ngIf = "loggedIn">
+          <a class="nav-link" routerLink="/exercises">Ćwiczenia</a>
+        </li>
+        <li class="nav-item" [ngClass]="{ 'bold': route === '/archive' }" *ngIf = "loggedIn && role === 'PATIENT'">
+          <a class="nav-link" routerLink="/archive">Archiwum</a>
+        </li>
+        <li class="nav-item" [ngClass]="{ 'bold': route === '/account' }" *ngIf = "loggedIn && role === 'PATIENT'">
+          <a class="nav-link" routerLink="/account">Konto</a>
+        </li>
+        <li class="nav-item" [ngClass]="{ 'bold': route === '/account-doctor' }" *ngIf = "loggedIn && role === 'DOCTOR'">
+          <a class="nav-link" routerLink="/account-doctor">Konto</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav me-2 mb-2 mb-lg-0">
+        <li class="nav-item d-flex align-items-center" *ngIf="loggedIn && role !== 'DOCTOR'">
+          <a class="nav-link" (click)="openNotificationDialog()">
+            <i class="bi bi-bell-fill"></i>
+            <span class="badge rounded-pill badge-notification bg-danger">{{numOfNotifications}}</span>
+          </a>
+        </li>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page">
+          <button *ngIf="!loggedIn" class="btn btn-primary" type="button" routerLink="/login">Zaloguj się</button>
+          <button *ngIf="loggedIn" class="btn btn-primary" type="button" (click)="onLogout()">Wyloguj się</button>
+        </a>
+      </li>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,95 @@
+<div class="container">
+  <div class="row justify-content-between" style="margin-top: 20px;">
+    <div class="col-md-6" style="width:45%">
+      <form [formGroup]="doctorInfoForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="name" class="form-label">Imię</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control doctor-info"
+            formControlName="name">
+        </div>
+        <div class="mb-3">
+          <label for="surname" class="form-label">Nazwisko</label>
+          <input
+            type="text"
+            id="surname"
+            class="form-control doctor-info"
+            formControlName="surname">
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">E-Mail</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control doctor-info"
+            formControlName="email">
+        </div>
+        <div class="mb-3">
+          <label for="birthDate" class="form-label">Data urodzenia</label>
+          <input
+            type="date"
+            id="birthDate"
+            class="form-control doctor-info"
+            formControlName="birthDate">
+          <p class="text-danger" *ngIf="doctorInfoForm.get('birthDate')?.touched && checkDate()">Niepoprawna data urodzenia</p>
+        </div>
+        <div class="mb-3">
+          <label for="specialization" class="form-label">Specjalizacja</label>
+          <input
+            type="text"
+            id="specialization"
+            class="form-control doctor-info"
+            formControlName="specialization">
+        </div>
+        <div class="mb-3">
+          <label for="address" class="form-label">Adres placówki</label>
+          <input
+            type="text"
+            id="address"
+            class="form-control doctor-info"
+            formControlName="address">
+        </div>
+        <div class="mb-3">
+          <label for="phoneNumber" class="form-label">Numer telefonu</label>
+          <input
+            type="text"
+            id="phoneNumber"
+            class="form-control doctor-info"
+            formControlName="phoneNumber">
+        </div>
+        <div class="text-center " style="margin-bottom: 10px">
+          <button class="btn btn buttons" type="submit" [disabled]="!doctorInfoForm.valid" (click)="onEdit()">Zapisz
+          </button>
+        </div>
+        <div class="text-center" *ngIf="!doctorInfoForm.valid">
+          <p class="text-danger">Niepoprawne dane, spróbuj ponownie</p>
+        </div>
+        <div class="text-center" *ngIf="editSucceded">
+          <p class="text-success">Zapisano</p>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6"  style="width:45%">
+      <div class="mb-3">
+        <label class="form-label">Twój unikalny kod</label>
+        <p class="form-control" style="height:40px">{{user.invitationCode}}</p>
+      </div>
+
+      <div class="mb-3 card" style="min-height: 200px; padding:20px">
+        <h5 class="text-center">Oczekujące prośby</h5>
+        <div *ngIf="pendingPatients.length >0">
+          <ul *ngFor="let patient of pendingPatients" class="list-group">
+            <li class="d-flex d-inline" style="text-decoration: none">
+              <p style="margin-top:10px; margin-right:10px">{{patient.name}} {{patient.surname}}</p>
+              <button style="margin-right:10px; padding:5px" class="btn btn-success" (click)="onAccept(patient.id)">Zatwierdź</button>
+              <button class="btn btn-danger" (click)="onDecline(patient.id)">Odrzuć</button>
+            </li>
+          </ul>
+        </div>
+        <p class="text-center" *ngIf="pendingPatients.length === 0">Nie masz żadnych oczekujących próśb</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+.card{
+  background-color: #f0f2e9;
+  border-radius: 5px;
+}
+.text{
+  color: #46523e;
+}
+.date{
+  color: red;
+  font-size: small;
+}
+
+.emoji-container {
+  text-align: center;
+  font-size: 15px;
+  display: inline-block;
+  margin-right: 20px;
+  border-width: 0;
+  background-color: transparent;
+  width: 13%
+}
+
+.emoji-container.clicked {
+  /*background-color: #eaddcf;*/
+  background-color: #fcfbf6;
+  border-radius: 5px;
+}
+
+.emoji-container p {
+  margin: 0;
+}
+.card-body{
+  text-align: center;
+}
+
+.moods{
+  /*background-color: #eaddcf;*/
+  background-color: #46523e;
+  /*border-color: #eaddcf;*/
+  /*color: #020826*/
+  color: #f0f2e9
+}
+.note{
+  background-color: #fcfbf6;
+  border-radius: 5px;
+  width: 100%;
+  height: 150px;
+}
+
+.form-group{
+  margin-bottom: 10px;
+}
+
+.buttons{
+  text-align: center;
+}
+
+.exercises{
+  /*background-color: #EADDCF;*/
+  background-color: #f0f2e9;
+  height: auto;
+  /*color: #716040;*/
+  color: #46523e;
+  min-height: 150px;
+}
+
+.exercises p {
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+.checkboxes{
+  margin-left: 20px;
+}
+
+.checkboxes p {
+  font-size: 16px;
+  list-style-type: disc;
+}
+
+.done{
+  background-color: #F9F4EF;
+  border-color: #F9F4EF;
+  color: #716040;
+  width: 40%;
+  margin: 10px auto;
+
+}
+

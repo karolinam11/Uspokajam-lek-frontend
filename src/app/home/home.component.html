@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="row hello">
+    <div class="col-lg-7">
+      <h1>Witamy w <strong>UspokajamLęk.pl</strong></h1>
+      <h5>Cieszę się, że znalazłeś(aś) drogę do UspokajamLęk.pl – miejsca, które powstało z myślą o Tobie, któremu
+        zależy na zdrowiu psychicznym, samopoczuciu i pokonywaniu wyzwań związanych z zaburzeniami lękowymi.</h5>
+      <br>
+      <button *ngIf="!loggedIn" class="btn btn signup" id="signupButton" type="button" routerLink="/signup">Zarejestruj się</button>
+      <div style="height: 30px">
+        <p></p>
+      </div>
+    </div>
+    <div class="col-lg-5 text-center">
+      <img src="assets/mindfulness.png" width="150">
+    </div>
+    <img class="divider" src="assets/wave.png">
+    <div class="row justify-content-center cards">
+      <div class="col-md-4 col-xs-6">
+        <div class="card">
+          <div class="card-body">
+            <p class="card-title">Karolina, 21 lat</p>
+            <p class="card-text">UspokajamLęk.pl pomógł mi w zrozumieniu i śledzeniu moich nastrojów, a ćwiczenia
+              oddechowe stały się moim sprzymierzeńcem w chwilach stresu.</p>
+          </div>
+        </div>
+      </div>
+      <div class="break"></div>
+      <div class="col-md-4 col-xs-6">
+        <div class="card">
+          <div class="card-body">
+            <p class="card-title">Piotr, 27 lat</p>
+            <p class="card-text">Dzięki UspokajamLęk.pl odkryłem, co pomaga mi w radzeniu sobie z lękiem, i czuję
+              codzienne wsparcie mojego terapeuty.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="text-center">
+  <div class="text-center p-3" style="color: #f0f2e9">
+    © 2023 Karolina Michałek
+  </div>
+</footer>
+

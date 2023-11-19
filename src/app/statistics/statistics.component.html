@@ -1,0 +1,61 @@
+<div class="container-fluid">
+  <form [formGroup]="statisticsForm">
+    <div class="row">
+      <div class="col-md-6 d-flex align-items-end">
+        <select class="form-select" id="time" formControlName="time" (change)="onSelectTime()">
+          <option value="week" selected>Ostatnie 7 dni</option>
+          <option value="month">Ostatnie 30 dni</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <div class="card d-flex flex-row justify-content-around">
+          <p>Dni z rzędu: {{number}}</p>
+          <p>Twoja najdłuższa seria: {{longestStreakNumber}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <canvas baseChart #myChart style="width: 100%"
+                [type]="'line'"
+                [data]="lineChartData"
+                [options]="lineChartOptions"
+                [legend]="true">
+        </canvas>
+      </div>
+      <div class="col-md-6">
+        <canvas baseChart style="width: 100%"
+                [type]="'bar'"
+                [data]="barChartData"
+                [options]="barChartOptions"
+                [legend]="true">
+        </canvas>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <p>Aktywności powiązane</p>
+        <form [formGroup]="moodForm">
+          <select class="form-select" id="mood" formControlName="mood" (change)="onSelectMood()">
+            <option value="" selected disabled>Emocja</option>
+            <option value="terrible">Okropnie</option>
+            <option value="bad">Źle</option>
+            <option value="neutral">Neutralnie</option>
+            <option value="good">Dobrze</option>
+            <option value="excellent">Wspaniale</option>
+          </select>
+        </form>
+        <div *ngIf="selectedMood !== ''">
+          <div *ngIf="activities.length > 0" style="margin-top: 10px">
+          <ul *ngFor="let entry of getActivitiesWithQuantity() | keyvalue" style="text-align: left;" class="list-group">
+            <li class="list-group-item">
+              <p>{{entry.key}} - {{entry.value}}</p>
+            </li>
+          </ul>
+          </div>
+          <p *ngIf="activities.length === 0" style="margin-top: 10px">Do tej emocji nie dodano powiązanych aktywności</p>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

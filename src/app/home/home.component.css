@@ -1,0 +1,44 @@
+.hello{
+  text-align: center;
+  margin-top: 50px;
+}
+.signup{
+  background-color: #46523e;
+  color: #FFFFFE;
+}
+
+.cards{
+  background-size: 100%;
+  height: 600px;
+  padding:0;
+}
+.divider{
+  object-fit: cover;
+  padding: 0;
+}
+
+.card{
+  background-color: #fcfbf5;
+  width: 80%;
+  margin: 0 auto;
+  height: 100%;
+}
+.break{
+  height: 30px;
+}
+@media(min-width: 800px){
+  .break {
+    display: none;
+  }
+}
+
+
+.cards{
+  background-color: #46523e;
+  margin: 0 auto;
+  height: 70%;
+}
+
+footer{
+  background-color: #46523e;
+}

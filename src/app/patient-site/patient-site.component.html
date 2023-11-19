@@ -1,0 +1,54 @@
+<div class="container-fluid" *ngIf="isContentLoaded">
+  <div class="row cards">
+    <div class="col-md-5" style="margin-left: 70px">
+      <div class="card text" style="margin-top: 10px; min-height: 100px">
+        <div class="card-body">
+          <p style="font-weight: bold">Dane:</p>
+          <p>{{patient.name}} {{patient.surname}}</p>
+          <p>{{patient.birthDate | date: 'dd-MM-yyyy'}}</p>
+          <p>{{patient.email}}</p>
+        </div>
+      </div>
+      <div class="card text" style="margin-top: 10px; min-height: 100px">
+        <div class="card-body">
+          <p style="font-weight: bold">Nadchodzące wizyty:</p>
+          <ul *ngFor="let appointment of futureAppointments">
+            <li>{{appointment.visitStartDate | date: "dd-MM-yyyy HH:mm" }} - {{appointment.visitEndDate | date: "HH:mm" }}
+              <img src="assets/trash.svg" style="margin-left: 10px;" (click)="openConfirmationDialogAppointment(appointment.id)">
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="card text" style="margin-top: 10px; min-height: 100px">
+        <div class="card-body">
+          <p style="font-weight: bold">Historia wizyt:</p>
+          <ul *ngFor="let appointment of pastAppointments">
+            <li>{{appointment.visitStartDate | date: "dd-MM-yyyy HH:mm" }} - {{appointment.visitEndDate | date: "HH:mm" }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5" style="margin-left: 70px; margin-top: 10px">
+      <button class="btn btn statistics" type="button" (click)="onCheckStatistics()">Statystyki pacjenta</button>
+      <button class="btn btn statistics" type="button" (click)="onAddAppointment()">Dodaj wizytę</button>
+      <button class="btn btn statistics" type="button" (click)="onAssignExercise()">Przypisz ćwiczenie</button>
+
+      <div class="card text" style="margin-top: 10px; min-height: 300px">
+        <div class="card-body">
+          <p style="text-align: center">Przypisane ćwiczenia</p>
+          <ul *ngFor="let assignedExercise of assignedExercises" class="d-flex d-inline">
+            <input type="checkbox" class="form-check" [checked]="assignedExercise.isDone" disabled id="{{assignedExercise.id}}" style="margin-right:10px">
+            <label for="{{assignedExercise.id}}">{{assignedExercise.exercise.name}} {{assignedExercise.dueDate}}
+              <img src="assets/trash.svg" style="margin-left: 10px;" (click)="openConfirmationDialogExercise(assignedExercise.id)">
+            </label>
+          </ul>
+        </div>
+      </div>
+      <div class="card text" style="margin-top: 10px; min-height: 200px">
+        <div class="card-body">
+          <h6 style="text-align: center">Kalendarz</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

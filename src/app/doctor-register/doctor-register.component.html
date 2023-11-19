@@ -1,0 +1,94 @@
+<div class="row">
+  <div class="col-md-4" style="margin: 0 auto;">
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">E-Mail <span>*</span></label>
+        <input
+          type="email"
+          id="email"
+          class="form-control info"
+          formControlName="email">
+        <p class="text-danger" *ngIf="signUpForm.get('email')?.touched && signUpForm.get('email')?.invalid">Niepoprawny email</p>
+      </div>
+      <div class="form-group">
+        <label for="password">Hasło <span>*</span></label>
+        <input
+          type="password"
+          id="password"
+          class="form-control info"
+          formControlName="password"
+          minlength="6">
+        <p class="text-danger" *ngIf="signUpForm.get('password')?.touched && signUpForm.value['password'].length < 6">Hasło powinno mieć conajmniej 6 znaków</p>
+      </div>
+      <div class="form-group">
+        <label for="secondPassword">Powtórz hasło <span>*</span></label>
+        <input
+          type="password"
+          id="secondPassword"
+          class="form-control info"
+          formControlName="secondPassword"
+          minlength="6">
+        <p class="text-danger" *ngIf="signUpForm.get('secondPassword')?.touched && signUpForm.value['secondPassword'].length < 6">Hasło powinno mieć conajmniej 6 znaków</p>
+        <p class="text-danger" *ngIf="signUpForm.get('secondPassword')?.touched && signUpForm.value['secondPassword'] != signUpForm.value['password']">Hasła nie są takie same</p>
+      </div>
+      <div class="form-group">
+        <label for="name">Imię <span>*</span> </label>
+        <input
+          type="text"
+          id="name"
+          class="form-control info"
+          formControlName="name">
+      </div>
+      <div class="form-group">
+        <label for="surname">Nazwisko <span>*</span></label>
+        <input
+          type="text"
+          id="surname"
+          class="form-control info"
+          formControlName="surname">
+      </div>
+      <div class="form-group">
+        <label for="birthDate">Data urodzenia</label>
+        <input
+          type="date"
+          id="birthDate"
+          class="form-control info"
+          formControlName="birthDate">
+      </div>
+      <div class="form-group">
+        <label for="birthDate">Specjalizacja <span>*</span></label>
+        <input
+          type="text"
+          id="specialization"
+          class="form-control info"
+          formControlName="specialization">
+      </div>
+      <div class="form-group">
+        <label for="birthDate">Adres placówki <span>*</span></label>
+        <input
+          type="text"
+          id="address"
+          class="form-control info"
+          formControlName="address">
+      </div>
+      <div class="form-group">
+        <label for="birthDate">Numer telefonu <span>*</span></label>
+        <input
+          type="text"
+          id="phoneNumber"
+          class="form-control info"
+          formControlName="phoneNumber">
+      </div>
+      <p style="color: red; text-align: center; font-size: 12px">
+        * pole wymagane
+      </p>
+      <div class="text-center">
+        <button class="btn btn buttons" style="margin-bottom: 20px" type="submit" [disabled]="!signUpForm.valid">Zarejestruj się</button>
+      </div>
+      <div class="text-center" *ngIf="registerFailed">
+        <p class="text-danger">Niepoprawne dane, spróbuj ponownie</p>
+      </div>
+    </form>
+  </div>
+</div>
+

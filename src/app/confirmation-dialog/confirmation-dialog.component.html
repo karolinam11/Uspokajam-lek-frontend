@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Pytanie</h1>
+<div mat-dialog-content>
+  {{ data.message }}
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="dialogRef.close(true)">Tak</button>
+  <button mat-button (click)="dialogRef.close(false)">Nie</button>
+</div>

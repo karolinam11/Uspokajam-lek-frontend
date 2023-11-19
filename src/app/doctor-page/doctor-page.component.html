@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <div class="row cards">
+    <div class="col-md-6">
+      <div class="card text" style="margin-top: 10px; min-height: 200px; margin-left: 20px">
+        <div class="card-body">
+          <h6 style="text-align: center">Pacjenci</h6>
+          <ul *ngFor="let patient of patients" style="margin-top: 20px">
+            <div class ="d-flex d-inline align-bottom">
+              <img src="assets/person.svg" style="margin-right: 10px;">
+              <a (click)="onSelectPatient(patient.id)" style="text-decoration: underline; color: #46523e">
+                <p style="margin-bottom:0">{{patient.name}} {{patient.surname}}</p>
+              </a>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card text" style="margin-top: 10px; min-height: 200px; margin-right: 20px">
+        <div class="card-body">
+          <h6 style="text-align: center">Nadchodzące wizyty</h6>
+          <ul *ngFor="let appointment of futureAppointments">
+            <li>{{appointment.patient.name}} {{appointment.patient.surname}} {{appointment.visitStartDate | date: "dd-MM-yyyy hh:mm" }} - {{appointment.visitEndDate | date: "HH:mm" }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row cards">
+    <div class="col-md-12">
+      <div class="card text" style="margin-top: 10px; min-height: 200px; margin-left: 20px; margin-right: 20px">
+        <div class="card-body text-center">
+          <full-calendar #calendar
+            [options]="calendarOptions"
+          ></full-calendar>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

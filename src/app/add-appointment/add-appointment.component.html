@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-md-4" style="margin: 0 auto;">
+    <form [formGroup]="addAppointmentForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="date" >Data</label>
+        <input
+          type="date"
+          id="date"
+          class="form-control info"
+          formControlName="date">
+      </div>
+      <div class="form-group">
+        <label for="startHour">Godzina rozpoczęcia</label>
+        <input
+          type="time"
+          id="startHour"
+          class="form-control info"
+          formControlName="startHour">
+      </div>
+      <div class="form-group">
+        <label for="endHour">Godzina zakończenia</label>
+        <input
+          type="time"
+          id="endHour"
+          class="form-control info"
+          formControlName="endHour">
+      </div>
+      <div class="text-center">
+        <button class="btn btn buttons" type="submit" [disabled]="!addAppointmentForm.valid">Dodaj wizytę</button>
+      </div>
+      <div class="text-center" *ngIf="addAppointmentFailed">
+        <p class="text-danger">Niepoprawne dane, spróbuj ponownie</p>
+      </div>
+    </form>
+  </div>
+</div>

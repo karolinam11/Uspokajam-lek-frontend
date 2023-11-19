@@ -1,0 +1,25 @@
+.background {
+  background-color: #f0f2e9;
+  border-radius: 5px;
+}
+
+.list-group{
+  margin: 10px 0 10px 0;
+}
+
+.list-group{
+  font-size: 18px;
+}
+
+.scrollable-container {
+  max-height: 80vh; /* Set your desired max height */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.buttons{
+  /*background-color: #F9F4EF;*/
+  background-color: #46523e;
+  /*border-color: #020826;*/
+  color: #f0f2e9;
+}
+

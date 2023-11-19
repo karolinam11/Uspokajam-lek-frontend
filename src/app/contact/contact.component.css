@@ -1,0 +1,16 @@
+.text {
+  margin-top: 40px;
+  text-align: left;
+  padding-left: 40px;
+  padding-right: 20px;
+  margin-bottom: 70px;
+}
+.divider{
+  object-fit: cover;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+footer{
+  background-color: #EADDCF;
+}

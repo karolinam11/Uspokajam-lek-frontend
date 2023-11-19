@@ -1,0 +1,27 @@
+.btn{
+  /*background-color: #8c7851;*/
+  background-color: #46523e;
+  /*border-color: #8c7851;*/
+  color: #fcfbf6;
+}
+.bold{
+  font-weight: bold;
+}
+#navbar{
+  /*background-color: #fffffe;*/
+  background-color: #fcfbf6;
+
+}
+
+.navbar-nav {
+  margin: 0 auto;
+}
+
+.nav-item{
+  margin: 0 20px;
+}
+
+.userpage {
+  border: 1px solid #46523e;
+  border-radius: 5px;
+}

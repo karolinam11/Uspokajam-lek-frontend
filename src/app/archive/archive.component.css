@@ -1,0 +1,21 @@
+.dates{
+  background-color: #f0f2e9;
+  border-radius: 5px;
+  margin:5px;
+  text-align: left;
+  color: #46523e;
+}
+
+.container{
+  margin-top: 10px;
+  color: #46523e;
+
+}
+
+.note{
+  background-color: #fcfbf6;
+  border-radius: 5px;
+  width: 70%;
+  height: 150px;
+  margin: 0 auto;
+}

@@ -1,0 +1,11 @@
+.card{
+  background-color: #f0f2e9;
+  border-radius: 5px;
+  border-width: 0;
+  color: #46523e;
+}
+.fullcalendar-date {
+  color: inherit; /* Inherit the color from the parent element */
+  text-decoration: none !important; /* Remove underlines and other decorations */
+  cursor: default; /* Change the cursor to the default arrow */
+}

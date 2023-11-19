@@ -1,0 +1,12 @@
+.card{
+  background: #FFFFFE;
+  border-radius: 5px;
+  border-color: #020826;
+  border: 1px solid;
+  text-align: left;
+  padding: 5px;
+}
+
+.card p{
+  margin:0;
+}

@@ -1,0 +1,55 @@
+<div *ngIf="data.mode ==='SHOW'">
+  <h1 mat-dialog-title><p style="font-weight: bold">{{data.exercise.name}}</p></h1>
+  <div mat-dialog-content>
+    <p><span class="text-small">Opis:</span> {{data.exercise.description}}</p>
+    <p>Czas trwania: {{data.exercise.duration}}</p>
+    <p>Kategoria: {{data.exercise.category}}</p>
+    <p><span
+      class="text-small">Stworzony przez:</span> {{data.exercise.createdBy.name}} {{data.exercise.createdBy.surname}}
+    </p>
+  </div>
+</div>
+<div mat-dialog-content *ngIf="data.mode ==='EDIT' || data.mode === 'ADD'">
+  <form [formGroup]="addExerciseForm" style="width: 50%; margin: 10px auto;">
+    <div class="form-group" style="margin-top: 10px">
+      <input
+        type="text"
+        id="name"
+        class="form-control info"
+        formControlName="name"
+        placeholder="Nazwa">
+    </div>
+    <div class="form-group" style="margin-top: 10px">
+      <input
+        type="text"
+        id="description"
+        class="form-control info"
+        formControlName="description"
+        placeholder="Opis">
+    </div>
+    <div class="form-group" style="margin-top: 10px">
+      <select class="form-select" formControlName="duration">
+        <option value="" selected>Czas Trwania</option>
+        <option value="short">Krótkie (< 5min)</option>
+        <option value="medium">Średnie (5-10 min)</option>
+        <option value="long">Długie (>10 min)</option>
+      </select>
+    </div>
+    <div class="form-group" style="margin-top: 10px">
+      <select class="form-select" id="categoryAddExercise" formControlName="category">
+        <option value="" selected>Kategoria</option>
+        <option value="oddechowe">Oddechowe</option>
+        <option value="Przyklad2">Two</option>
+        <option value="Przyklad3">Three</option>
+      </select>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions align="end" style>
+  <button class="btn btn-success" (click)="onCloseDialog('ADD')" *ngIf="data.mode === 'ADD'">Dodaj</button>
+  <button class="btn btn-danger" (click)="onCloseDialog('DELETE')" *ngIf="data.mode === 'EDIT'">Usuń</button>
+  <button class="btn btn-primary" [disabled]="!addExerciseForm.valid" (click)="onCloseDialog('SAVE')"
+          *ngIf="data.mode === 'EDIT'">Zapisz
+  </button>
+  <button class="btn btn-dark" (click)="dialogRef.close('CLOSE')">Zamknij</button>
+</div>

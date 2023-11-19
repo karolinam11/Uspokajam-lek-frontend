@@ -1,0 +1,52 @@
+<div class="container-fluid">
+  <div class="row" style="width:80%; margin: 0 auto;">
+    <div class="col-lg-4 col-md-4">
+      <div class="filters background" style="margin:10px; padding:10px; min-width: 150px">
+        <h3 class="text-center">Filtry</h3>
+        <form [formGroup]="exerciseForm" style="width: 50%; margin: 10px auto;">
+          <div class="form-group" style="margin-top: 10px">
+            <input
+              type="text"
+              id="name"
+              class="form-control info"
+              formControlName="name"
+              placeholder="Nazwa"
+              (input)="onFilter()">
+          </div>
+          <div class="form-group" style="margin-top: 10px">
+            <select class="form-select" formControlName="duration" (change)="onFilter()">
+              <option value="" selected>Czas</option>
+              <option value="short">Krótkie (< 5min)</option>
+              <option value="medium">Średnie (5-10 min)</option>
+              <option value="long">Długie (>10 min)</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-top: 10px">
+            <select class="form-select" id="categoryAddExercise" formControlName="category" (change)="onFilter()">
+              <option value="" selected>Kategoria</option>
+              <option value="Oddechowe">Oddechowe</option>
+              <option value="Przyklad2">Two</option>
+              <option value="Przyklad3">Three</option>
+            </select>
+          </div>
+          <div class="form-check" style="margin-top: 10px">
+            <input class="form-check-input" type="checkbox" formControlName="myTherapist" id="myTherapist" (change)="onFilterTherapist()">
+            <label class="form-check-label" for="myTherapist" style="font-size: 14px">
+              Od mojego terapeuty
+            </label>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-lg-8 col-md-6">
+      <div class="background scrollable-container flex" style="margin:10px; padding:10px;">
+        <ul class="list-group" *ngFor="let exercise of filteredExercises">
+          <li class="list-group-item" (click)="onSelectExercise(exercise)">{{ exercise.name }}</li>
+        </ul>
+      </div>
+      <div class="text-end">
+        <button class="btn btn-success" style="" *ngIf="role === 'DOCTOR'" (click)="onAddExercise()">Dodaj ćwiczenie</button>
+      </div>
+    </div>
+  </div>
+</div>
