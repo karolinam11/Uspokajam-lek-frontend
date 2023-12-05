@@ -76,6 +76,18 @@ export class StatisticsComponent {
     this.moodForm = new FormGroup({
       "mood": new FormControl('')
     })
+    this.getMoods();
+    this.getMoodsQuantity();
+  }
+
+  checkForId() {
+    if (this.activatedRoute.snapshot.paramMap.get('id')) {
+      return this.activatedRoute.snapshot.paramMap.get('id')
+    }
+    return this.authService.user.value.id
+  }
+
+  getMoods(){
     this.statisticsService.getMoods(this.numOfDays, +this.checkForId())
       .subscribe(
         (response) => {
@@ -89,6 +101,9 @@ export class StatisticsComponent {
           this.setupChartData();
         }
       )
+  }
+
+  getMoodsQuantity(){
     this.statisticsService.getMoodsQuantity(this.numOfDays, +this.checkForId()).subscribe(
       response => {
         console.log(response)
@@ -98,13 +113,6 @@ export class StatisticsComponent {
     )
   }
 
-  checkForId() {
-    if (this.activatedRoute.snapshot.paramMap.get('id')) {
-      return this.activatedRoute.snapshot.paramMap.get('id')
-    }
-    return this.authService.user.value.id
-  }
-
   onSelectTime() {
     var choice = this.statisticsForm.value['time'];
     if (choice === 'week') {
@@ -112,19 +120,9 @@ export class StatisticsComponent {
     } else {
       this.numOfDays = 30;
     }
-    this.statisticsService.getMoods(this.numOfDays)
-      .subscribe(
-        (response) => {
-          this.moods = response;
-          this.moods = this.moods.sort( (a,b) => {
-            const dateA = new Date(a.date);
-            const dateB = new Date(b.date);
-            // @ts-ignore
-            return dateA - dateB;
-          })
-          this.setupChartData();
-        }
-      )
+    this.getMoods();
+    this.getMoodsQuantity();
+    this.setupChartData();
     this.getAssociatedActivities()
   }
 
