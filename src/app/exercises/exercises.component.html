@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="isContentLoaded">
   <div class="row" style="width:80%; margin: 0 auto;">
     <div class="col-lg-4 col-md-4">
       <div class="filters background" style="margin:10px; padding:10px; min-width: 150px">
@@ -29,7 +29,7 @@
               <option value="Przyklad3">Three</option>
             </select>
           </div>
-          <div class="form-check" style="margin-top: 10px">
+          <div class="form-check" style="margin-top: 10px" *ngIf="role !== 'DOCTOR'">
             <input class="form-check-input" type="checkbox" formControlName="myTherapist" id="myTherapist" (change)="onFilterTherapist()">
             <label class="form-check-label" for="myTherapist" style="font-size: 14px">
               Od mojego terapeuty

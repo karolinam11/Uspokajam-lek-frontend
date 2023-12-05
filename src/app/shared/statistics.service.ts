@@ -17,11 +17,11 @@ export class StatisticsService{
     return this.http.post<Mood[]>("http://localhost:8080/daily-reports/moods",{numOfDays: numOfDays, userId: userId})
   }
 
-  getMoodsQuantity(userId ?: number){
+  getMoodsQuantity(days: number, userId ?: number){
     if(userId === null){
       userId = this.authService.user.value.id
     }
-    return this.http.get<number[]>("http://localhost:8080/daily-reports/moods-quantity?id=" + userId)
+    return this.http.get<number[]>("http://localhost:8080/daily-reports/moods-quantity?id=" + userId +"&days=" + days)
   }
 
 }

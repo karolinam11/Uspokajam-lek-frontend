@@ -27,7 +27,7 @@ export class DoctorService{
   }
 
   getPatients(){
-    return this.http.get<User[]>("http://localhost:8080/patients?id=" + this.authService.user.value.id)
+    return this.http.get<User[]>("http://localhost:8080/doctor/patients?id=" + this.authService.user.value.id)
   }
 
   getFutureAppointments(){
@@ -55,11 +55,11 @@ export class DoctorService{
   }
 
   getPendingPatientRequests(){
-    return this.http.get<User[]>("http://localhost:8080/pending-requests?id="+ this.authService.user.value.id);
+    return this.http.get<User[]>("http://localhost:8080/doctor/pending-requests?id="+ this.authService.user.value.id);
   }
 
   acceptPatientRequest(patientId: number){
-    return this.http.post("http://localhost:8080/accept-pending-request", {patientId: patientId, doctorId: this.authService.user.value.id});
+    return this.http.post("http://localhost:8080/doctor/accept-pending-request", {patientId: patientId, doctorId: this.authService.user.value.id});
   }
 
  declinePatientRequest(patientId: number){

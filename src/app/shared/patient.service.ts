@@ -11,12 +11,20 @@ export class PatientService {
               private authService: AuthService) {
   }
 
-  getFutureAppointments() {
-    return this.http.get<Appointment[]>("http://localhost:8080/patient-appointments?id=" + this.authService.user.value.id)
+  getFutureAppointments(id ?: string) {
+    if(id){
+      return this.http.get<Appointment[]>("http://localhost:8080/patient-appointments?id=" + id)
+    } else {
+      return this.http.get<Appointment[]>("http://localhost:8080/patient-appointments?id=" + this.authService.user.value.id)
+    }
   }
 
-  getPastAppointments() {
-    return this.http.get<Appointment[]>("http://localhost:8080/patient-past-appointments?id=" + this.authService.user.value.id)
+  getPastAppointments(id ?: string) {
+    if(id){
+      return this.http.get<Appointment[]>("http://localhost:8080/patient-past-appointments?id=" + id)
+    } else {
+      return this.http.get<Appointment[]>("http://localhost:8080/patient-past-appointments?id=" + this.authService.user.value.id)
+    }
   }
 
   createDoctorRequest(invitationCode: string) {

@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
-import {ChartConfiguration, ChartData, ChartOptions, ChartType} from "chart.js";
+import {ChartConfiguration, ChartData, ChartOptions} from "chart.js";
 import {DatePipe} from "@angular/common";
 import {BaseChartDirective} from "ng2-charts";
 import {Activity} from "../models/activity";
@@ -50,7 +50,6 @@ export class StatisticsComponent {
   };
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
-    // We use these empty structures as placeholders for dynamic theming.
     plugins: {
       legend: {
         display: true,
@@ -90,8 +89,9 @@ export class StatisticsComponent {
           this.setupChartData();
         }
       )
-    this.statisticsService.getMoodsQuantity(+this.checkForId()).subscribe(
+    this.statisticsService.getMoodsQuantity(this.numOfDays, +this.checkForId()).subscribe(
       response => {
+        console.log(response)
         this.moodsQuantity = response
         this.setupChartData();
       }
@@ -225,15 +225,12 @@ export class StatisticsComponent {
     getActivitiesWithQuantity(){
       const activityQuantityMap = new Map<string, number>();
 
-      // Iterate through the activities and count them
       this.activities.forEach((activity) => {
         const activityName = activity.name;
 
         if (activityQuantityMap.has(activityName)) {
-          // Increment the count if the activity name already exists in the map
           activityQuantityMap.set(activityName, activityQuantityMap.get(activityName)! + 1);
         } else {
-          // Initialize the count to 1 if the activity name is not in the map
           activityQuantityMap.set(activityName, 1);
         }
       });

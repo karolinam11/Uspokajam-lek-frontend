@@ -79,11 +79,15 @@
     <div class="col-md-6">
       <div class="exercises card">
         <p class="text-center"> Do zrobienia dzisiaj</p>
-        <div class="form-check checkboxes" *ngFor="let assignedExercise of exercisesToDo">
-          <input class="form-check-input" type="checkbox" [checked]="assignedExercise.done" [disabled]="assignedExercise.done" id="{{assignedExercise.id}}" (change)="setExerciseToDone(assignedExercise)">
-          <label class="form-check-label" for="{{assignedExercise.id}}" (click)="goToExercise(assignedExercise)">
-            {{assignedExercise.exercise.name}}
-          </label>
+        <div class="d-flex flex-inline align-items-center" style="padding:10px" *ngFor="let assignedExercise of exercisesToDo">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" [checked]="assignedExercise.done" [disabled]="assignedExercise.done" id="{{assignedExercise.id}}" (change)="setExerciseToDone(assignedExercise)">
+            <label class="form-check-label" for="{{assignedExercise.id}}">
+              {{assignedExercise.exercise.name}}
+            </label>
+          </div>
+          <button style="margin-left:10px" class="btn btn-success btn-small" (click)="onSelectExercise(assignedExercise.exercise)">Szczegóły
+          </button>
         </div>
       </div>
       <br>

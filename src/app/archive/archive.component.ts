@@ -5,6 +5,8 @@ import {ActivityService} from "../shared/activity.service";
 import {Activity} from "../models/activity";
 import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {ActivatedRoute} from "@angular/router";
+import {AuthService} from "../shared/auth.service";
 
 @Component({
   selector: 'app-archive',
@@ -19,8 +21,10 @@ export class ArchiveComponent {
 
   constructor(private dailyReportService: DailyReportService,
               private activityService: ActivityService,
-              private dialog: MatDialog
-  ) {
+              private dialog: MatDialog,
+              private activatedRoute: ActivatedRoute,
+              private authService: AuthService) {
+    this.checkForId();
     this.getDailyReports();
     this.activityService.getActivities().subscribe(
       (response) =>{
@@ -88,6 +92,13 @@ export class ArchiveComponent {
         )
       }
     });
+  }
+
+  checkForId() {
+    if (this.activatedRoute.snapshot.paramMap.get('id')) {
+      return this.activatedRoute.snapshot.paramMap.get('id')
+    }
+    return this.authService.user.value.id
   }
 
 }

@@ -17,6 +17,7 @@ import {AssignedExercise} from "../models/assignedExercise";
 export class PatientSiteComponent {
 
   patient: User | null = null;
+  patientId: string | null;
   futureAppointments: Appointment[] = [];
   pastAppointments: Appointment[] = [];
   isContentLoaded = false;
@@ -30,7 +31,7 @@ export class PatientSiteComponent {
 ) {
     this.checkForId()
     this.getFutureAppointments()
-    patientService.getPastAppointments().subscribe(
+    patientService.getPastAppointments(this.patientId).subscribe(
       (response) => {
         this.pastAppointments = response
       }
@@ -40,11 +41,13 @@ export class PatientSiteComponent {
 
   checkForId() {
     if (this.activatedRoute.snapshot.paramMap.get('id')) {
+      this.patientId = this.activatedRoute.snapshot.paramMap.get('id')
       this.doctorService.getPatients().subscribe(
         (response) => {
           this.patient = response.filter(patient => {
             return +this.activatedRoute.snapshot.paramMap.get('id') === patient.id
           })[0]
+          this.patientId = this.patient.id.toString()
           this.isContentLoaded=true
         }
       )
@@ -52,6 +55,7 @@ export class PatientSiteComponent {
   }
 
   onAddAppointment(){
+    console.log(this.patient)
     this.doctorService.selectedPatient = this.patient
     this.router.navigate(["add-appointment"])
   }
@@ -102,7 +106,7 @@ export class PatientSiteComponent {
   }
 
   getFutureAppointments(){
-    this.patientService.getFutureAppointments().subscribe(
+    this.patientService.getFutureAppointments(this.patientId).subscribe(
       (response) => {
         this.futureAppointments = response
       }
@@ -110,8 +114,9 @@ export class PatientSiteComponent {
   }
 
   getAssignedExercises(){
-    this.exerciseService.getPatientExercisesForToday(this.doctorService.selectedPatient.id).subscribe(
+    this.exerciseService.getPatientExercises(this.patientId).subscribe(
       (response) => {
+        console.log(response)
         this.assignedExercises = response
       }
     )

@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row justify-content-between" style="margin-top: 20px;">
-    <div class="col-md-6"  style="width:45%">
+    <div class="col-md-6" style="width:45%">
       <form [formGroup]="patientInfoForm">
         <div class="mb-3">
           <label for="name" class="form-label">Imię</label>
@@ -35,7 +35,8 @@
             formControlName="birthDate">
         </div>
         <div class="text-center">
-          <button class="btn btn buttons" type="submit"  [disabled]="!patientInfoForm.valid" (click)="onEdit()">Zapisz</button>
+          <button class="btn btn buttons" type="submit" [disabled]="!patientInfoForm.valid" (click)="onEdit()">Zapisz
+          </button>
         </div>
         <div class="text-center" *ngIf="!patientInfoForm.valid">
           <p class="text-danger">Niepoprawne dane, spróbuj ponownie</p>
@@ -47,14 +48,18 @@
     </div>
     <div class="col-md-6" style="width:45%">
       <br>
-      <div class="therapists-list">
+      <div class="therapists-list" style="padding:10px">
         <p class="text-center">Lista terapeutów</p>
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let doctor of therapists">{{doctor.name}} {{doctor.surname}}</li>
+        </ul>
       </div>
       <div class="text-center">
-        <button *ngIf="!addTherapist" class="btn btn buttons" type="button" (click)="onAddTherapist()">Dodaj terapeutę</button>
+        <button *ngIf="!addTherapist" class="btn btn buttons" type="button" (click)="onAddTherapist()">Dodaj terapeutę
+        </button>
       </div>
       <form [formGroup]="therapistCodeForm" *ngIf="addTherapist">
-        <div class="mb-3" >
+        <div class="mb-3">
           <input
             type="text"
             id="code"
@@ -63,12 +68,19 @@
             formControlName="code">
         </div>
         <div class="text-center">
-          <button class="btn btn buttons" type="submit" *ngIf='addTherapist' (click)="onSubmitTherapistCode()">Potwierdź</button>
+          <button class="btn btn buttons" type="submit" *ngIf='addTherapist' (click)="onSubmitTherapistCode()">
+            Potwierdź
+          </button>
         </div>
       </form>
       <br>
-      <div class="therapists-list">
+      <div class="therapists-list" style="padding: 10px">
         <p class="text-center">Historia wizyt</p>
+        <ul class="list-group" style="padding:10px"  style="margin-bottom:10px">
+          <li class="list-group-item"
+              *ngFor="let appointment of pastAppointments">{{appointment.visitStartDate | date: "dd-MM-yyyy hh:MM"}}
+            - {{appointment.visitEndDate | date: "hh:MM"}}</li>
+        </ul>
       </div>
     </div>
   </div>

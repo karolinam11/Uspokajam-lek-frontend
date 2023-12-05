@@ -6,9 +6,7 @@ import {Exercise} from "../models/exercise";
 import {ExerciseService} from "../shared/exercise.service";
 import {PatientService} from "../shared/patient.service";
 import {MatDialog} from "@angular/material/dialog";
-import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
 import {ExerciseDialogComponent} from "./exercise-dialog/exercise-dialog.component";
-import {ex} from "@fullcalendar/core/internal-common";
 
 @Component({
   selector: 'app-exercises',
@@ -20,11 +18,10 @@ export class ExercisesComponent {
   exerciseForm: FormGroup
   exercises: Exercise[] = []
   filteredExercises: Exercise[] = []
-  selectedExercise: Exercise | null = null;
   role = null;
   myTherapists: number[] = []
   filterTherapist = false;
-
+  isContentLoaded = false;
 
   constructor(private exerciseService: ExerciseService,
               private activatedRoute: ActivatedRoute,
@@ -109,16 +106,6 @@ export class ExercisesComponent {
     this.onFilter()
   }
 
-  checkForId() {
-    if (this.activatedRoute.snapshot.paramMap.get('id')) {
-      this.selectedExercise = this.exercises.filter(
-        ex => {
-          return ex.id === +this.activatedRoute.snapshot.paramMap.get('id')!;
-        }
-      )[0]
-    }
-  }
-
   getExercises() {
     setTimeout(() => {
       this.exerciseService.getExercises().subscribe(
@@ -126,9 +113,13 @@ export class ExercisesComponent {
           console.log(newValue)
           this.exercises = newValue;
           this.filteredExercises = newValue;
-          this.checkForId()
+          this.isContentLoaded = true;
         }
       );
     }, 500)
+  }
+
+  mapLengthToPolish(length: string){
+
   }
 }

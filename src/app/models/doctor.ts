@@ -8,8 +8,8 @@ export class Doctor extends User{
   invitationCode: string
 
 
-  constructor(id: number, email: string, name: string, surname: string, birthDate: Date, role: Role, specialization: string, address: string, phoneNumber: string, invitationCode: string) {
-    super(id, email, name, surname, birthDate, role);
+  constructor(id: number, email: string, name: string, surname: string, birthDate: Date, role: Role, token: string, specialization: string, address: string, phoneNumber: string, invitationCode: string) {
+    super(id, email, name, surname, birthDate, role, token);
     this.specialization = specialization;
     this.address = address;
     this.phoneNumber = phoneNumber;

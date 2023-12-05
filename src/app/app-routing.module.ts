@@ -35,7 +35,8 @@ const appRoutes: Routes = [
   {path: 'patient-site/:id', component: PatientSiteComponent},
   {path: 'add-appointment', component: AddAppointmentComponent},
   {path: 'assign-exercise', component: AssignExerciseComponent},
-  {path: 'archive', component: ArchiveComponent}
+  {path: 'archive', component: ArchiveComponent},
+  {path: 'archive/:id', component: ArchiveComponent}
 ]
 
 @NgModule({

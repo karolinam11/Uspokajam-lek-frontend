@@ -12,6 +12,11 @@ import {ExerciseService} from "../shared/exercise.service";
 import {AuthService} from "../shared/auth.service";
 import {NotificationService} from "../shared/notification.service";
 import {DatePipe} from "@angular/common";
+import {ex} from "@fullcalendar/core/internal-common";
+import {Exercise} from "../models/exercise";
+import {ExerciseDialogComponent} from "../exercises/exercise-dialog/exercise-dialog.component";
+import {Dialog} from "@angular/cdk/dialog";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-user-page',
@@ -25,14 +30,14 @@ export class UserPageComponent {
   activitiesForm: FormGroup;
   exercisesToDo: AssignedExercise[] = []
   exercisesDone: AssignedExercise[] = []
-  queueToMove: string[] = []
   selectedMood: string | null = null;
   dailyReportFailed = false;
   futureAppointments: Appointment[] = [];
-  invalidDate = true;
+  invalidDate = false;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
+              private dialog: MatDialog,
               private activityService: ActivityService,
               private dailyReportService: DailyReportService,
               private exerciseService: ExerciseService,
@@ -108,8 +113,9 @@ export class UserPageComponent {
     }
   }
 
-  goToExercise(exercise: string) {
-    this.router.navigate(["exercises/2"])
+  goToExercise(exercise: number) {
+    console.log(exercise)
+    this.router.navigate(["exercises/" + exercise])
   }
 
   onDateChange() {
@@ -151,6 +157,17 @@ export class UserPageComponent {
         this.exercisesDone = response
       }
     )
+  }
+
+  onSelectExercise(exercise: Exercise) {
+    const userId = this.authService.user.value.id;
+    var mode = "SHOW";
+    let dialogRef = this.dialog.open(ExerciseDialogComponent, {
+      data: {
+        exercise: exercise,
+        mode: mode
+      }
+    });
   }
 
 

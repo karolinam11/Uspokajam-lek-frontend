@@ -3,6 +3,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../shared/auth.service";
 import {User} from "../models/user";
 import {PatientService} from "../shared/patient.service";
+import {Doctor} from "../models/doctor";
+import {Appointment} from "../models/appointment";
 
 @Component({
   selector: 'app-account',
@@ -16,6 +18,8 @@ export class AccountComponent {
   addTherapist = false;
   user: User | null  = null;
   editSucceeded = false;
+  therapists: Doctor[] = []
+  pastAppointments: Appointment[] = []
 
   constructor(private authService: AuthService,
               private patientService: PatientService) {
@@ -36,6 +40,18 @@ export class AccountComponent {
         this.therapistCodeForm = new FormGroup({
           code: new FormControl("", Validators.required),
         });
+        this.patientService.getMyDoctors()
+          .subscribe(
+            (res) => {
+              this.therapists = res;
+            }
+          )
+        this.patientService.getPastAppointments()
+          .subscribe(
+            (res) => {
+              this.pastAppointments = res
+            }
+          )
       }
     )
 

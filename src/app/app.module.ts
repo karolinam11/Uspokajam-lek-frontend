@@ -12,7 +12,7 @@ import { UserPageComponent } from './user-page/user-page.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import {AuthService} from "./shared/auth.service";
 import { AccountComponent } from './account/account.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { ExercisesComponent } from './exercises/exercises.component';
 import {ExerciseService} from "./shared/exercise.service";
 import { DoctorRegisterComponent } from './doctor-register/doctor-register.component';
@@ -39,6 +39,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import {UserGuard} from "./shared/guards/user.guard";
 import { ArchiveComponent } from './archive/archive.component';
 import {ExerciseDialogComponent} from "./exercises/exercise-dialog/exercise-dialog.component";
+import {AuthInterceptor} from "./shared/auth/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import {ExerciseDialogComponent} from "./exercises/exercise-dialog/exercise-dial
     NotificationService,
     UserGuard,
     { provide: NgChartsConfiguration, useValue: config },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   DatePipe],
   bootstrap: [AppComponent],
 

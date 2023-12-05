@@ -46,7 +46,7 @@ export class ExerciseService {
   }
 
 
-  getPatientExercises(patientId: number) {
+  getPatientExercises(patientId: string) {
     return this.http.get<AssignedExercise[]>("http://localhost:8080/patient-assigned-exercises?id=" + patientId)
   }
 
