@@ -10,16 +10,12 @@ export class DailyReportService{
   }
 
   addDailyReport(dailyReport: DailyReport){
-    return this.http.post("http://localhost:8080/daily-reports/add", {mood: dailyReport.mood, date: dailyReport.date, note: dailyReport.note, userId: this.authService.user.value.id})
+    return this.http.post("http://localhost:8080/daily-reports/add", {mood: dailyReport.mood, date: dailyReport.date, note: dailyReport.note})
   }
 
   getDailyReportsForUser(){
     return this.http.get<DailyReport[]>("http://localhost:8080/daily-reports?id=" + this.authService.user.value.id);
-  }
-
-  canSentDailyReport(){
-    return this.http.get<boolean>("http://localhost:8080/daily-reports/check?id=" + this.authService.user.value.id);
-  }
+  }f
 
   remove
   removeDailyReport(reportId: number){

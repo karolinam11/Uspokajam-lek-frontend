@@ -20,6 +20,7 @@ export class AccountComponent {
   editSucceeded = false;
   therapists: Doctor[] = []
   pastAppointments: Appointment[] = []
+  doctorRequestFailed = false;
 
   constructor(private authService: AuthService,
               private patientService: PatientService) {
@@ -67,6 +68,14 @@ export class AccountComponent {
   onSubmitTherapistCode(){
     this.addTherapist = false;
     this.patientService.createDoctorRequest(this.therapistCodeForm.value["code"])
+      .subscribe(
+        (res) => {
+          this.doctorRequestFailed = false;
+        },
+        (error) => {
+          this.doctorRequestFailed = true;
+        }
+      )
   }
 
 }

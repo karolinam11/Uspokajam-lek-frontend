@@ -11,11 +11,8 @@ import {AssignedExercise} from "../models/assignedExercise";
 import {ExerciseService} from "../shared/exercise.service";
 import {AuthService} from "../shared/auth.service";
 import {NotificationService} from "../shared/notification.service";
-import {DatePipe} from "@angular/common";
-import {ex} from "@fullcalendar/core/internal-common";
 import {Exercise} from "../models/exercise";
 import {ExerciseDialogComponent} from "../exercises/exercise-dialog/exercise-dialog.component";
-import {Dialog} from "@angular/cdk/dialog";
 import {MatDialog} from "@angular/material/dialog";
 
 @Component({
@@ -114,7 +111,6 @@ export class UserPageComponent {
   }
 
   goToExercise(exercise: number) {
-    console.log(exercise)
     this.router.navigate(["exercises/" + exercise])
   }
 
@@ -168,6 +164,11 @@ export class UserPageComponent {
         mode: mode
       }
     });
+  }
+
+  private dateTimeToDate(date: Date): Date{
+    date.setHours(0, 0, 0, 0);
+    return date;
   }
 
 

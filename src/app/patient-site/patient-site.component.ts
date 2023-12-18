@@ -55,7 +55,6 @@ export class PatientSiteComponent {
   }
 
   onAddAppointment(){
-    console.log(this.patient)
     this.doctorService.selectedPatient = this.patient
     this.router.navigate(["add-appointment"])
   }
@@ -116,10 +115,26 @@ export class PatientSiteComponent {
   getAssignedExercises(){
     this.exerciseService.getPatientExercises(this.patientId).subscribe(
       (response) => {
-        console.log(response)
         this.assignedExercises = response
       }
     )
+  }
+
+  onCheckArchive(){
+    this.router.navigate(["archive/" + this.patient.id ])
+  }
+
+  getPastExercises(){
+    return this.assignedExercises.filter(exercise => new Date(exercise.dueDate) < this.dateTimeToDate(new Date(Date.now())) && new Date(exercise.dueDate) > this.dateTimeToDate(new Date(Date.now() - (24*60*60*1000) * 7)))
+}
+
+  getFutureExercises(){
+    return this.assignedExercises.filter(exercise => new Date(exercise.dueDate) > this.dateTimeToDate(new Date(Date.now())))
+  }
+
+  private dateTimeToDate(date: Date): Date{
+    date.setHours(0, 0, 0, 0);
+    return date;
   }
 
 }

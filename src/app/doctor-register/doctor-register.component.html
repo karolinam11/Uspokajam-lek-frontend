@@ -48,12 +48,13 @@
           formControlName="surname">
       </div>
       <div class="form-group">
-        <label for="birthDate">Data urodzenia</label>
+        <label for="birthDate">Data urodzenia  <span>*</span></label>
         <input
           type="date"
           id="birthDate"
           class="form-control info"
           formControlName="birthDate">
+        <p class="text-danger" *ngIf="signUpForm.get('birthDate')?.touched && checkDate()">Niepoprawna data urodzenia</p>
       </div>
       <div class="form-group">
         <label for="birthDate">Specjalizacja <span>*</span></label>
@@ -83,7 +84,7 @@
         * pole wymagane
       </p>
       <div class="text-center">
-        <button class="btn btn buttons" style="margin-bottom: 20px" type="submit" [disabled]="!signUpForm.valid">Zarejestruj się</button>
+        <button class="btn btn buttons" style="margin-bottom: 20px" type="submit" [disabled]="!signUpForm.valid || checkDate()">Zarejestruj się</button>
       </div>
       <div class="text-center" *ngIf="registerFailed">
         <p class="text-danger">Niepoprawne dane, spróbuj ponownie</p>

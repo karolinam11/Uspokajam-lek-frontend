@@ -42,7 +42,7 @@ export class NotificationService {
           this.notifications.next(updatedNotifications) //wysyłam do headera
         }
       )
-    this.http.get<boolean>("http://localhost:8080/daily-reports-today?id=" + this.authService.user.value.id) //zwraca prawdę albo fałsz w zależności od tego czy użytkownik już zrobił raport
+    this.http.get<boolean>("http://localhost:8080/daily-reports/today?id=" + this.authService.user.value.id) //zwraca prawdę albo fałsz w zależności od tego czy użytkownik już zrobił raport
       .subscribe(
         (response) => {
           if(response){ //jesli nie został zrobioy raport wysyłane jest powiadomienie

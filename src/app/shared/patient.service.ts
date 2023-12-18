@@ -31,7 +31,7 @@ export class PatientService {
     return this.http.post("http://localhost:8080/add-doctor-request", {
       patientId: this.authService.user.value.id,
       invitationCode: invitationCode
-    }).subscribe()
+    })
   }
 
   getMyDoctors() {

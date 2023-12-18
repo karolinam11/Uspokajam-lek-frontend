@@ -17,8 +17,8 @@ import {AuthService} from "../shared/auth.service";
 export class StatisticsComponent {
   statisticsForm: FormGroup;
   moodForm: FormGroup
-  number: number = 1;
-  longestStreakNumber: number = 1
+  number ?: number
+  longestStreakNumber?: number
   numOfDays = 7;
   selectedMood: string = ''
   activities: Activity[] = []
@@ -78,6 +78,8 @@ export class StatisticsComponent {
     })
     this.getMoods();
     this.getMoodsQuantity();
+    this.getLongestStreak();
+    this.getCurrentStreak();
   }
 
   checkForId() {
@@ -106,7 +108,6 @@ export class StatisticsComponent {
   getMoodsQuantity(){
     this.statisticsService.getMoodsQuantity(this.numOfDays, +this.checkForId()).subscribe(
       response => {
-        console.log(response)
         this.moodsQuantity = response
         this.setupChartData();
       }
@@ -235,4 +236,20 @@ export class StatisticsComponent {
 
       return activityQuantityMap;
     }
+
+    getLongestStreak(){
+    this.statisticsService.getLongestStreak().subscribe(
+      (res) => {
+        this.longestStreakNumber = res;
+      }
+    )
+    }
+
+  getCurrentStreak(){
+    this.statisticsService.getCurrentStreak().subscribe(
+      (res) => {
+        this.number = res;
+      }
+    )
+  }
 }

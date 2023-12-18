@@ -11,11 +11,4 @@ export class HomeComponent {
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
-    this.loggedIn = this.authService.user.value !== null;
-      }
-  onLogout() {
-    this.authService.logout()
-  }
-
 }

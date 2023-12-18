@@ -1,10 +1,10 @@
 <div *ngIf="data.mode ==='SHOW'">
   <h1 mat-dialog-title><p style="font-weight: bold">{{data.exercise.name}}</p></h1>
   <div mat-dialog-content>
-    <p><span class="text-small">Opis:</span> {{data.exercise.description}}</p>
+    <p [innerHTML]="data.exercise.description"></p>
     <p>Czas trwania: {{data.exercise.duration}}</p>
     <p>Kategoria: {{data.exercise.category}}</p>
-    <p><span
+    <p *ngIf="!!data.exercise.createdBy"><span
       class="text-small">Stworzony przez:</span> {{data.exercise.createdBy.name}} {{data.exercise.createdBy.surname}}
     </p>
   </div>

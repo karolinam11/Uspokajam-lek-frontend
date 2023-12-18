@@ -24,15 +24,13 @@
           <div class="form-group" style="margin-top: 10px">
             <select class="form-select" id="categoryAddExercise" formControlName="category" (change)="onFilter()">
               <option value="" selected>Kategoria</option>
-              <option value="Oddechowe">Oddechowe</option>
-              <option value="Przyklad2">Two</option>
-              <option value="Przyklad3">Three</option>
+              <option *ngFor="let category of getCategories()" [value]="category">{{category}}</option>
             </select>
           </div>
           <div class="form-check" style="margin-top: 10px" *ngIf="role !== 'DOCTOR'">
             <input class="form-check-input" type="checkbox" formControlName="myTherapist" id="myTherapist" (change)="onFilterTherapist()">
             <label class="form-check-label" for="myTherapist" style="font-size: 14px">
-              Od mojego terapeuty
+              Od mojego specjalisty
             </label>
           </div>
         </form>
@@ -40,12 +38,13 @@
     </div>
     <div class="col-lg-8 col-md-6">
       <div class="background scrollable-container flex" style="margin:10px; padding:10px;">
+        <h3 class="text-center">Lista</h3>
         <ul class="list-group" *ngFor="let exercise of filteredExercises">
           <li class="list-group-item" (click)="onSelectExercise(exercise)">{{ exercise.name }}</li>
         </ul>
       </div>
       <div class="text-end">
-        <button class="btn btn-success" style="" *ngIf="role === 'DOCTOR'" (click)="onAddExercise()">Dodaj ćwiczenie</button>
+        <button class="btn btn-success" style="background-color: #46523e" *ngIf="role === 'DOCTOR'" (click)="onAddExercise()">Dodaj ćwiczenie</button>
       </div>
     </div>
   </div>

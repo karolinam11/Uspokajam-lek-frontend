@@ -48,7 +48,7 @@ export class ExercisesComponent {
   onSelectExercise(exercise: Exercise) {
     const userId = this.authService.user.value.id;
     var mode = "SHOW";
-    if (userId === exercise.createdBy.id && this.role === "DOCTOR") {
+    if (exercise.createdBy?.id !== undefined && userId === exercise.createdBy.id && this.role === "DOCTOR") {
       mode = "EDIT"
     }
     let dialogRef = this.dialog.open(ExerciseDialogComponent, {
@@ -78,7 +78,7 @@ export class ExercisesComponent {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
+      if (result !== 'CLOSE') {
         this.exerciseService.addExercise(result).subscribe();
         this.getExercises();
       }
@@ -95,7 +95,7 @@ export class ExercisesComponent {
       const filterByName = name === '' || ex.name.toLowerCase().includes(name.toLowerCase());
       const filterByCategory = category === '' || ex.category.toLowerCase() === category.toLowerCase();
       const filterByDuration = duration === '' || ex.duration === duration;
-      const filterByTherapist = (!this.filterTherapist && this.myTherapists.length > 0) || this.myTherapists.includes(ex.createdBy.id)
+      const filterByTherapist = (!this.filterTherapist && this.myTherapists.length > 0) || (!!ex.createdBy && this.myTherapists.includes(ex.createdBy.id))
 
       return filterByName && filterByCategory && filterByDuration && filterByTherapist;
     });
@@ -110,7 +110,6 @@ export class ExercisesComponent {
     setTimeout(() => {
       this.exerciseService.getExercises().subscribe(
         newValue => {
-          console.log(newValue)
           this.exercises = newValue;
           this.filteredExercises = newValue;
           this.isContentLoaded = true;
@@ -119,7 +118,7 @@ export class ExercisesComponent {
     }, 500)
   }
 
-  mapLengthToPolish(length: string){
-
+  getCategories(){
+    return new Set(this.exercises.map(ex => ex.category));
   }
 }

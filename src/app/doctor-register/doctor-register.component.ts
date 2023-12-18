@@ -19,7 +19,7 @@ export class DoctorRegisterComponent {
       secondPassword: new FormControl("", Validators.required),
       name: new FormControl("", Validators.required),
       surname: new FormControl("", Validators.required),
-      birthDate: new FormControl(""),
+      birthDate: new FormControl("", Validators.required),
       specialization: new FormControl("", Validators.required),
       address: new FormControl("", Validators.required),
       phoneNumber: new FormControl("", Validators.required),
@@ -41,6 +41,16 @@ export class DoctorRegisterComponent {
       this.signUpForm.value["address"],
       this.signUpForm.value["phoneNumber"],
       "DOCTOR")
+  }
+
+  checkDate(){
+    const date = new Date(this.signUpForm.value["birthDate"])
+    if(date < new Date('01-01-1900') || date > new Date(Date.now())){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 
 

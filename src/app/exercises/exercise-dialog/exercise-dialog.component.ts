@@ -13,6 +13,7 @@ export class ExerciseDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: {exercise ?: Exercise, mode: string},
               public dialogRef: MatDialogRef<ExerciseDialogComponent>) {
     if(data.mode !== "ADD"){
+      data.exercise.description = data.exercise.description.replace(/\n/g, "<br>")
       this.addExerciseForm = new FormGroup({
         name: new FormControl(data.exercise.name),
         description: new FormControl(data.exercise.description),
@@ -42,13 +43,15 @@ export class ExerciseDialogComponent {
         )
       this.dialogRef.close(exercise)
     }
-    else{
+    else if(action === "SAVE") {
       const updatedExercise = this.data.exercise
       updatedExercise.name = this.addExerciseForm.value['name']
       updatedExercise.description = this.addExerciseForm.value['description']
       updatedExercise.category = this.addExerciseForm.value['category']
       updatedExercise.duration = this.addExerciseForm.value['duration']
       this.dialogRef.close(updatedExercise)
+    } else {
+      this.dialogRef.close()
     }
   }
 

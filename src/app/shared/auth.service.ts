@@ -37,7 +37,6 @@ export class AuthService {
           else{
             user = new Doctor(response.body.user.id, response.body.user.email, response.body.user.name, response.body.user.surname, response.body.user.birthDate, response.body.user.role, response.body.token, response.body.user.specialization, response.body.user.address,response.body.user.phoneNumber, response.body.user.invitationCode)
             this.router.navigate(["doctor-page"])
-            console.log(user)
           }
           localStorage.setItem("loggedInUser", JSON.stringify(user))
           this.user.next(user);
@@ -70,7 +69,7 @@ export class AuthService {
   }
 
   registerDoctor(email: string, password: string, name: string, surname: string, birthDate: Date, specialization: string, address: string, phoneNumber: string, role: string) {
-    this.http.post("http://localhost:8080/signup-doctor", {
+    this.http.post("http://localhost:8080/doctor/signup-doctor", {
       email,
       password,
       name,

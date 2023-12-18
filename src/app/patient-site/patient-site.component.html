@@ -32,12 +32,20 @@
       <button class="btn btn statistics" type="button" (click)="onCheckStatistics()">Statystyki pacjenta</button>
       <button class="btn btn statistics" type="button" (click)="onAddAppointment()">Dodaj wizytę</button>
       <button class="btn btn statistics" type="button" (click)="onAssignExercise()">Przypisz ćwiczenie</button>
+      <button class="btn btn statistics" type="button" (click)="onCheckArchive()">Archiwum</button>
 
       <div class="card text" style="margin-top: 10px; min-height: 300px">
         <div class="card-body">
-          <p style="text-align: center">Przypisane ćwiczenia</p>
-          <ul *ngFor="let assignedExercise of assignedExercises" class="d-flex d-inline">
-            <input type="checkbox" class="form-check" [checked]="assignedExercise.isDone" disabled id="{{assignedExercise.id}}" style="margin-right:10px">
+          <p style="text-align: center">Przyszłe ćwiczenia</p>
+          <ul *ngFor="let assignedExercise of getFutureExercises()" class="d-flex d-inline">
+            <input type="checkbox" class="form-check" [checked]="assignedExercise.done" disabled id="{{assignedExercise.id}}" style="margin-right:10px">
+            <label for="{{assignedExercise.id}}">{{assignedExercise.exercise.name}} {{assignedExercise.dueDate}}
+              <img src="assets/trash.svg" style="margin-left: 10px;" (click)="openConfirmationDialogExercise(assignedExercise.id)">
+            </label>
+          </ul>
+          <p style="text-align: center">Przeszłe ćwiczenia</p>
+          <ul *ngFor="let assignedExercise of getPastExercises()" class="d-flex d-inline">
+            <input type="checkbox" class="form-check" [checked]="assignedExercise.done" disabled id="{{assignedExercise.id}}" style="margin-right:10px">
             <label for="{{assignedExercise.id}}">{{assignedExercise.exercise.name}} {{assignedExercise.dueDate}}
               <img src="assets/trash.svg" style="margin-left: 10px;" (click)="openConfirmationDialogExercise(assignedExercise.id)">
             </label>

@@ -45,17 +45,18 @@
           <p class="text-success">Zapisano</p>
         </div>
       </form>
-    </div>
-    <div class="col-md-6" style="width:45%">
-      <br>
       <div class="therapists-list" style="padding:10px">
-        <p class="text-center">Lista terapeutów</p>
-        <ul class="list-group">
+        <h6 class="text-center">Lista specjalistów</h6>
+        <ul class="list-group" *ngIf="therapists.length > 0">
           <li class="list-group-item" *ngFor="let doctor of therapists">{{doctor.name}} {{doctor.surname}}</li>
         </ul>
+        <div class="text-center" *ngIf="therapists.length===0">
+         <p>Nie jesteś zapisany do żadnego specjalisty.</p>
+          <p>Wyślij prośbę do specjalisty lub poczekaj na jej zatwierdzenie.</p>
+        </div>
       </div>
       <div class="text-center">
-        <button *ngIf="!addTherapist" class="btn btn buttons" type="button" (click)="onAddTherapist()">Dodaj terapeutę
+        <button *ngIf="!addTherapist" class="btn btn buttons" type="button" (click)="onAddTherapist()">Dodaj specjalistę
         </button>
       </div>
       <form [formGroup]="therapistCodeForm" *ngIf="addTherapist">
@@ -73,7 +74,10 @@
           </button>
         </div>
       </form>
-      <br>
+      <p class="text-center text-danger" *ngIf="doctorRequestFailed">Kod jest nieprawidłowy</p>
+    </div>
+    <br>
+    <div class="col-md-6" style="width:45%">
       <div class="therapists-list" style="padding: 10px">
         <p class="text-center">Historia wizyt</p>
         <ul class="list-group" style="padding:10px"  style="margin-bottom:10px">

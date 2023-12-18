@@ -28,8 +28,7 @@
               <h1>😄</h1>
               <p class="text">Wspaniale</p>
             </button>
-            <br>
-            <br>
+            <hr>
             <p>Co robiłeś? Jak się wtedy czułeś?</p>
             <form [formGroup]="activitiesForm">
               <div formArrayName="moods">
@@ -64,7 +63,7 @@
               <button (click)="addEntry()" class="btn btn moods">+</button>
             </form>
           </div>
-          <br>
+          <hr>
           <p>Dodaj notatkę!</p>
           <div>
             <textarea class="note" #note></textarea>

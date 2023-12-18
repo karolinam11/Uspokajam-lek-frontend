@@ -83,8 +83,8 @@
           <ul *ngFor="let patient of pendingPatients" class="list-group">
             <li class="d-flex d-inline" style="text-decoration: none">
               <p style="margin-top:10px; margin-right:10px">{{patient.name}} {{patient.surname}}</p>
-              <button style="margin-right:10px; padding:5px" class="btn btn-success" (click)="onAccept(patient.id)">Zatwierdź</button>
-              <button class="btn btn-danger" (click)="onDecline(patient.id)">Odrzuć</button>
+              <button class="btn accept" (click)="onAccept(patient.id)">Zatwierdź</button>
+              <button class="btn reject" (click)="onDecline(patient.id)">Odrzuć</button>
             </li>
           </ul>
         </div>

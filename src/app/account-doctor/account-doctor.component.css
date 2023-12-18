@@ -25,3 +25,15 @@
   border-width: 0;
   color: #46523e;
 }
+
+.accept{
+  margin-right:10px;
+  padding:5px;
+  background-color: #46523e;
+  color: #f0f2e9;
+}
+
+.reject{
+  background-color: #D2042D;
+  color: #f0f2e9;
+}

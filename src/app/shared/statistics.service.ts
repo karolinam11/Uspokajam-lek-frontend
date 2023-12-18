@@ -21,7 +21,15 @@ export class StatisticsService{
     if(userId === null){
       userId = this.authService.user.value.id
     }
-    return this.http.get<number[]>("http://localhost:8080/daily-reports/moods-quantity?id=" + userId +"&days=" + days)
+    return this.http.get<number[]>("http://localhost:8080/daily-reports/moods-quantity?userId=" + userId +"&days=" + days)
+  }
+
+  getLongestStreak(){
+    return this.http.get<number>("http://localhost:8080/daily-reports/longest-streak?userId=" + this.authService.user.value.id)
+  }
+
+  getCurrentStreak(){
+    return this.http.get<number>("http://localhost:8080/daily-reports/current-streak?userId=" + this.authService.user.value.id)
   }
 
 }

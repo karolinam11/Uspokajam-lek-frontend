@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
-import {AuthService} from "../shared/auth.service";
-import {ActivityService} from "../shared/activity.service";
 import {ExerciseService} from "../shared/exercise.service";
 import {Exercise} from "../models/exercise";
-import {Doctor} from "../models/doctor";
 import {DoctorService} from "../shared/doctor.service";
 
 @Component({
@@ -34,7 +31,7 @@ export class AssignExerciseComponent {
 
   onAssignExercise() {
     const date = new Date(this.assignExerciseForm.value['date'])
-    if (date < new Date(Date.now())) {
+    if (date.getDate() < new Date(Date.now()).getDate()) {
       this.assignExerciseFailed = true;
     } else {
       this.doctorService.assignExercise(this.assignExerciseForm.value["exercise"], this.assignExerciseForm.value["date"])
