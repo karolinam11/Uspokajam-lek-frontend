@@ -29,27 +29,49 @@
     </div>
     <div class="form-group" style="margin-top: 10px">
       <select class="form-select" formControlName="duration">
-        <option value="" selected>Czas Trwania</option>
+        <option value="" selected>Czas Trwania (kategoria)</option>
         <option value="krotkie">Krótkie (< 5min)</option>
         <option value="srednie">Średnie (5-10 min)</option>
         <option value="dlugie">Długie (>10 min)</option>
       </select>
     </div>
     <div class="form-group" style="margin-top: 10px">
+      <input
+        type="number"
+        id="time"
+        class="form-control info"
+        formControlName="time"
+        placeholder="Czas trwania (w minutach)">
+    </div>
+    <div class="form-group" style="margin-top: 10px">
       <select class="form-select" id="categoryAddExercise" formControlName="category">
         <option value="" selected>Kategoria</option>
         <option value="oddechowe">Oddechowe</option>
-        <option value="Przyklad2">Two</option>
-        <option value="Przyklad3">Three</option>
+        <option value="Przyklad2">Fizyczne</option>
+        <option value="Przyklad3">Inne</option>
       </select>
     </div>
   </form>
 </div>
-<div mat-dialog-actions align="end" style>
-  <button class="btn btn-success" (click)="onCloseDialog('ADD')" *ngIf="data.mode === 'ADD'">Dodaj</button>
-  <button class="btn btn-danger" (click)="onCloseDialog('DELETE')" *ngIf="data.mode === 'EDIT'">Usuń</button>
-  <button class="btn btn-primary" [disabled]="!addExerciseForm.valid" (click)="onCloseDialog('SAVE')"
-          *ngIf="data.mode === 'EDIT'">Zapisz
-  </button>
-  <button class="btn btn-dark" (click)="dialogRef.close('CLOSE')">Zamknij</button>
+<div mat-dialog-actions class="dialog-actions">
+  <!-- Timer Section -->
+  <div *ngIf="data.mode === 'SHOW' && data.exercise.time !== 0" class="timer-controls">
+    <button mat-icon-button class="timer" (click)="onStartTimer()">
+      <mat-icon>play_arrow</mat-icon>
+    </button>
+    <p>{{ timerFormatted }}</p>
+    <button mat-icon-button class="timer" (click)="onStopTimer()">
+      <mat-icon>pause</mat-icon>
+    </button>
+  </div>
+
+  <!-- Action Buttons Section -->
+  <div class="action-buttons">
+    <button class="btn button" (click)="onCloseDialog('ADD')" *ngIf="data.mode === 'ADD'">Dodaj</button>
+    <button class="btn btn-danger" (click)="onCloseDialog('DELETE')" *ngIf="data.mode === 'EDIT'">Usuń</button>
+    <button class="btn btn-primary" [disabled]="!addExerciseForm.valid" (click)="onCloseDialog('SAVE')"
+            *ngIf="data.mode === 'EDIT'">Zapisz
+    </button>
+    <button class="btn close" (click)="dialogRef.close('CLOSE')">Zamknij</button>
+  </div>
 </div>

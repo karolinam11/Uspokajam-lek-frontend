@@ -40,6 +40,8 @@ import {UserGuard} from "./shared/guards/user.guard";
 import { ArchiveComponent } from './archive/archive.component';
 import {ExerciseDialogComponent} from "./exercises/exercise-dialog/exercise-dialog.component";
 import {AuthInterceptor} from "./shared/auth/auth.interceptor";
+import {MatInputModule} from "@angular/material/input";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -73,7 +75,9 @@ import {AuthInterceptor} from "./shared/auth/auth.interceptor";
     NgChartsModule,
     FullCalendarModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatInputModule,
+    MatIconModule
   ],
   providers: [AuthService,
     ExerciseService,

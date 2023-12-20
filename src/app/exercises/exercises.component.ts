@@ -55,7 +55,8 @@ export class ExercisesComponent {
       data: {
         exercise: exercise,
         mode: mode
-      }
+      },
+      autoFocus: false
     });
 
     dialogRef.afterClosed().subscribe(result => {

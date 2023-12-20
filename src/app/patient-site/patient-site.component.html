@@ -1,5 +1,5 @@
 <div class="container-fluid" *ngIf="isContentLoaded">
-  <div class="row cards">
+  <div class="row">
     <div class="col-md-5" style="margin-left: 70px">
       <div class="card text" style="margin-top: 10px; min-height: 100px">
         <div class="card-body">
@@ -9,9 +9,9 @@
           <p>{{patient.email}}</p>
         </div>
       </div>
-      <div class="card text" style="margin-top: 10px; min-height: 100px">
+      <div class="card text" style="margin-top: 10px; min-height: 100px; max-height: 200px">
         <div class="card-body">
-          <p style="font-weight: bold">Nadchodzące wizyty:</p>
+          <p style="font-weight: bold; overflow-y: auto;">Nadchodzące wizyty:</p>
           <ul *ngFor="let appointment of futureAppointments">
             <li>{{appointment.visitStartDate | date: "dd-MM-yyyy HH:mm" }} - {{appointment.visitEndDate | date: "HH:mm" }}
               <img src="assets/trash.svg" style="margin-left: 10px;" (click)="openConfirmationDialogAppointment(appointment.id)">
@@ -19,9 +19,9 @@
           </ul>
         </div>
       </div>
-      <div class="card text" style="margin-top: 10px; min-height: 100px">
+      <div class="card text" style="margin-top: 10px; min-height: 100px; max-height: 270px; overflow-y: auto;">
         <div class="card-body">
-          <p style="font-weight: bold">Historia wizyt:</p>
+          <p style="font-weight: bold;">Historia wizyt:</p>
           <ul *ngFor="let appointment of pastAppointments">
             <li>{{appointment.visitStartDate | date: "dd-MM-yyyy HH:mm" }} - {{appointment.visitEndDate | date: "HH:mm" }}</li>
           </ul>
@@ -34,7 +34,7 @@
       <button class="btn btn statistics" type="button" (click)="onAssignExercise()">Przypisz ćwiczenie</button>
       <button class="btn btn statistics" type="button" (click)="onCheckArchive()">Archiwum</button>
 
-      <div class="card text" style="margin-top: 10px; min-height: 300px">
+      <div class="card text" style="margin-top: 10px; min-height: 300px; overflow-y: auto; max-height: 74%">
         <div class="card-body">
           <p style="text-align: center">Przyszłe ćwiczenia</p>
           <ul *ngFor="let assignedExercise of getFutureExercises()" class="d-flex d-inline">

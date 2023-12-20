@@ -14,27 +14,34 @@
         </div>
       </div>
     </div>
+    <br>
     <div class="row">
       <div class="col-md-6">
+        <h6 style="text-align: center">Wykres liniowy emocji</h6>
         <canvas baseChart #myChart style="width: 100%"
                 [type]="'line'"
                 [data]="lineChartData"
                 [options]="lineChartOptions"
-                [legend]="true">
+                [legend]="false">
         </canvas>
       </div>
       <div class="col-md-6">
+        <h6 style="text-align: center">Wykres słupkowy emocji</h6>
         <canvas baseChart style="width: 100%"
                 [type]="'bar'"
                 [data]="barChartData"
                 [options]="barChartOptions"
-                [legend]="true">
+                [legend]="false">
         </canvas>
       </div>
     </div>
+    <br>
     <div class="row">
+      <div class="text-center">
+        <hr style="margin-left: 10px; margin-right: 10px">
+      </div>
       <div class="col-md-6 text-center">
-        <p>Aktywności powiązane</p>
+        <h6 style="text-align: center">Lista emocji z powiązanymi aktywnościami</h6>
         <form [formGroup]="moodForm">
           <select class="form-select" id="mood" formControlName="mood" (change)="onSelectMood()">
             <option value="" selected disabled>Emocja</option>
@@ -47,15 +54,30 @@
         </form>
         <div *ngIf="selectedMood !== ''">
           <div *ngIf="activities.length > 0" style="margin-top: 10px">
-          <ul *ngFor="let entry of getActivitiesWithQuantity() | keyvalue" style="text-align: left;" class="list-group">
-            <li class="list-group-item">
-              <p>{{entry.key}} - {{entry.value}}</p>
-            </li>
-          </ul>
+            <ul *ngFor="let entry of getActivitiesWithQuantity() | keyvalue" style="text-align: left;" class="list-group">
+              <li class="list-group-item">
+                <p>{{entry.key}} - {{entry.value}}</p>
+              </li>
+            </ul>
           </div>
-          <p *ngIf="activities.length === 0" style="margin-top: 10px">Do tej emocji nie dodano powiązanych aktywności</p>
+          <p *ngIf="associatedActivites.length === 0" style="margin-top: 10px">Do tej emocji nie dodano powiązanych aktywności</p>
         </div>
       </div>
-    </div>
+      <div class="col-md-6 text-center">
+        <h6 style="text-align: center">Wykres słupkowy wybranej aktywności</h6>
+        <form [formGroup]="activityForm">
+          <select class="form-select" id="name" formControlName="name" (change)="onSelectActivity()">
+            <option value="" selected disabled>Aktywność</option>
+            <option *ngFor="let activity of getUniqueActivities()" value="{{activity}}">{{activity}}</option>
+          </select>
+        </form>
+          <canvas baseChart style="width: 100%"
+                  [type]="'bar'"
+                  [data]="activityChartData"
+                  [options]="activityChartOptions"
+                  [legend]="false">
+          </canvas>
+        </div>
+      </div>
   </form>
 </div>

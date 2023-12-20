@@ -6,6 +6,8 @@
         zależy na zdrowiu psychicznym, samopoczuciu i pokonywaniu wyzwań związanych z zaburzeniami lękowymi.</h5>
       <br>
       <button *ngIf="!loggedIn" class="btn btn signup" id="signupButton" type="button" routerLink="/signup">Zarejestruj się</button>
+      <br *ngIf="loggedIn">
+
       <div style="height: 30px">
         <p></p>
       </div>
@@ -37,9 +39,11 @@
     </div>
   </div>
 </div>
-<footer class="text-center">
-  <div class="text-center p-3" style="color: #f0f2e9">
-    © 2023 Karolina Michałek
-  </div>
-</footer>
+<div style="background-color: #46523e; height: 90px">
+  <footer class="text-center">
+    <div class="text-center p-3" style="color: #f0f2e9; height:80px">
+      © 2023 Karolina Michałek
+    </div>
+  </footer>
+</div>
 

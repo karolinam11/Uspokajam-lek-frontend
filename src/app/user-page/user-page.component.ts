@@ -93,7 +93,6 @@ export class UserPageComponent {
           .subscribe(
             (response) => {
               this.dailyReportFailed = false;
-              this.notificationService.getNotifications();
             },
             (error) => {
               this.dailyReportFailed = true;

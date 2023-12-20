@@ -56,10 +56,8 @@
 }
 
 .exercises{
-  /*background-color: #EADDCF;*/
   background-color: #f0f2e9;
   height: auto;
-  /*color: #716040;*/
   color: #46523e;
   min-height: 150px;
 }
@@ -87,5 +85,10 @@
   width: 40%;
   margin: 10px auto;
 
+}
+
+.info{
+  background-color: #46523e;
+  color: #f0f2e9;
 }
 

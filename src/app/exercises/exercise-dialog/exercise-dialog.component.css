@@ -9,3 +9,36 @@
 .btn{
   margin-right: 10px
 }
+.button{
+  background-color: #46523e;
+  color: #f0f2e9;
+}
+
+.close{
+  background-color: #D2042D;
+  color: #f0f2e9;
+}
+
+.timer-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer {
+  margin: 5px;
+}
+
+.timer-controls p {
+  display: inline-block;
+  margin: 0 10px;
+  vertical-align: middle;
+  font-size: 20px;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* Ensure the container takes full width */
+}

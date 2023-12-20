@@ -4,6 +4,7 @@
   margin:5px;
   text-align: left;
   color: #46523e;
+  overflow-y: auto;
 }
 
 .container{

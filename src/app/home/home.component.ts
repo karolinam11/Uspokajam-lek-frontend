@@ -9,6 +9,8 @@ import {AuthService} from "../shared/auth.service";
 export class HomeComponent {
   loggedIn = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {
+    this.loggedIn = !!authService.user.value
+  }
 
 }

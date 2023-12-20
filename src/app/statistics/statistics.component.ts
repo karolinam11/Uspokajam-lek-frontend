@@ -16,32 +16,79 @@ import {AuthService} from "../shared/auth.service";
 })
 export class StatisticsComponent {
   statisticsForm: FormGroup;
+  activityForm: FormGroup
   moodForm: FormGroup
+  selectedMood: string = ''
   number ?: number
   longestStreakNumber?: number
   numOfDays = 7;
-  selectedMood: string = ''
+  selectedActivity: string = ''
   activities: Activity[] = []
+  associatedActivites: Activity[] = []
   moods = []
   moodsQuantity: number[] = []
+  activityMoodsQuantity: number[] = []
   @ViewChild('myChart') myChart: BaseChartDirective;
 
   lineChartData: ChartConfiguration<'line'>['data'];
   lineChartOptions: ChartOptions<'line'> = {
     responsive: true,
+    plugins: {
+      tooltip: {
+        enabled: false
+      }
+    },
     scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Data'
+        }
+      },
       y: {
+        title: {
+          display: true,
+          text: 'Emocja przewodnia'
+        },
         beginAtZero: true,
         ticks: {
           callback: (value: number) => {
-            // Replace the numeric values with corresponding string labels
             const labels = ['okropnie', 'źle', 'średnio', 'dobrze', 'wspaniale'];
             return labels[value] || '';
           }
         }
       }
-    }
+    },
   };
+  public activityChartData: ChartData<'bar'> = {
+    labels: ['okropnie', 'źle', 'średnio', 'dobrze', 'wspaniale'],
+    datasets: [
+      {data: this.activityMoodsQuantity, label: 'Nastroje'},
+    ],
+  };
+  public activityChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: true,
+      },
+    },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Data'
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Emocja przewodnia'
+        },
+      },
+    },
+  };
+
   public barChartData: ChartData<'bar'> = {
     labels: ['okropnie', 'źle', 'średnio', 'dobrze', 'wspaniale'],
     datasets: [
@@ -56,10 +103,16 @@ export class StatisticsComponent {
       },
     },
     scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Data'
+        }
+      },
       y: {
-        beginAtZero: true,
-        ticks: {
-          stepSize: 1
+        title: {
+          display: true,
+          text: 'Emocja przewodnia'
         },
       },
     },
@@ -73,6 +126,9 @@ export class StatisticsComponent {
     this.statisticsForm = new FormGroup({
       "time": new FormControl('week')
     })
+    this.activityForm = new FormGroup({
+      "name": new FormControl('')
+    })
     this.moodForm = new FormGroup({
       "mood": new FormControl('')
     })
@@ -80,6 +136,7 @@ export class StatisticsComponent {
     this.getMoodsQuantity();
     this.getLongestStreak();
     this.getCurrentStreak();
+    this.getActivities();
   }
 
   checkForId() {
@@ -124,7 +181,9 @@ export class StatisticsComponent {
     this.getMoods();
     this.getMoodsQuantity();
     this.setupChartData();
+    this.getActivities()
     this.getAssociatedActivities()
+
   }
 
   getLastWeek() {
@@ -146,24 +205,29 @@ export class StatisticsComponent {
   setupChartData() {
     this.lineChartData = {
       labels:
-        this.getLastWeek()
-      ,
+        this.getLastWeek(),
       datasets: [
         {
           data: this.processMoods(),
-          label: 'Nastroje w ostatnim tygodniu',
           fill: false,
           tension: 0.5,
           backgroundColor: 'rgba(255,0,0,0.3)',
           spanGaps: true
         }
-      ]
+      ],
     };
 
     this.barChartData = {
       labels: ['okropnie', 'źle', 'średnio', 'dobrze', 'wspaniale'],
       datasets: [
         {data: this.moodsQuantity, label: 'Nastroje'},
+      ],
+    };
+
+    this.activityChartData = {
+      labels: ['okropnie', 'źle', 'średnio', 'dobrze', 'wspaniale'],
+      datasets: [
+        {data: this.activityMoodsQuantity, label: 'Nastroje'},
       ],
     };
   }
@@ -178,12 +242,65 @@ export class StatisticsComponent {
     daysBefore.setTime(daysBefore.getTime() - this.numOfDays * 86400000 );
     this.activityService.getActivities().subscribe(
       (response) => {
-        this.activities = response.filter(activity => {
+        this.associatedActivites = response.filter(activity => {
           return new Date(activity.date) >= new Date(daysBefore) && activity.mood === this.selectedMood;
+        })
+        console.log(this.associatedActivites)
+      }
+    )
+  }
+
+  onSelectActivity() {
+    this.selectedActivity = this.activityForm.value['name'];
+    this.activityMoodsQuantity = this.countMoodsOccurrences();
+    this.setupChartData();
+  }
+
+  countMoodsOccurrences(){
+    const moodCounts = [0, 0, 0, 0, 0];
+
+    this.activities.forEach(activity => {
+      if(activity.name === this.selectedActivity){
+        switch (activity.mood) {
+          case 'terrible': moodCounts[0]++; break;
+          case 'bad': moodCounts[1]++; break;
+          case 'neutral': moodCounts[2]++; break;
+          case 'good': moodCounts[3]++; break;
+          case 'excellent': moodCounts[4]++; break;
+        }
+      }
+    });
+
+    return moodCounts;
+  }
+
+  getActivities() {
+    const daysBefore = new Date();
+    daysBefore.setTime(daysBefore.getTime() - this.numOfDays * 86400000 );
+    this.activityService.getActivities().subscribe(
+      (response) => {
+        this.activities = response.filter(activity => {
+          return new Date(activity.date) >= new Date(daysBefore);
         })
       }
     )
   }
+
+  getActivitiesWithQuantity(){
+    const activityQuantityMap = new Map<string, number>();
+    this.associatedActivites.forEach((activity) => {
+      const activityName = activity.name;
+
+      if (activityQuantityMap.has(activityName)) {
+        activityQuantityMap.set(activityName, activityQuantityMap.get(activityName)! + 1);
+      } else {
+        activityQuantityMap.set(activityName, 1);
+      }
+    });
+
+    return activityQuantityMap;
+  }
+
   processMoods() {
     var moodsAsNumbers = []
     var begginingDay = this.getDateXDaysBefore(this.numOfDays-1);
@@ -221,22 +338,6 @@ export class StatisticsComponent {
       return null;
     }
 
-    getActivitiesWithQuantity(){
-      const activityQuantityMap = new Map<string, number>();
-
-      this.activities.forEach((activity) => {
-        const activityName = activity.name;
-
-        if (activityQuantityMap.has(activityName)) {
-          activityQuantityMap.set(activityName, activityQuantityMap.get(activityName)! + 1);
-        } else {
-          activityQuantityMap.set(activityName, 1);
-        }
-      });
-
-      return activityQuantityMap;
-    }
-
     getLongestStreak(){
     this.statisticsService.getLongestStreak().subscribe(
       (res) => {
@@ -251,5 +352,9 @@ export class StatisticsComponent {
         this.number = res;
       }
     )
+  }
+
+  getUniqueActivities(){
+    return new Set(this.activities.map(activity => activity.name));
   }
 }

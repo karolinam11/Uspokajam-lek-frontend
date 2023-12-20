@@ -12,8 +12,8 @@
 }
 
 .scrollable-container {
-  max-height: 80vh; /* Set your desired max height */
-  overflow-y: auto; /* Enable vertical scrolling */
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 .buttons{
